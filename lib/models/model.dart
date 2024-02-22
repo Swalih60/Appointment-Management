@@ -17,4 +17,10 @@ class FireStoreServices {
       'TimeStamp': Timestamp.now(),
     });
   }
+
+  Stream<QuerySnapshot> getrequests() {
+    final requestStream =
+        requests.orderBy('TimeStamp', descending: true).snapshots();
+    return requestStream;
+  }
 }

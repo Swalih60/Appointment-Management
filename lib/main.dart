@@ -1,10 +1,11 @@
 import 'package:ams/firebase_options.dart';
-import 'package:ams/screens/adminofficial_screen.dart';
-import 'package:ams/screens/digital_screen.dart';
-import 'package:ams/screens/hod_screen.dart';
-import 'package:ams/screens/progress_screen.dart';
-import 'package:ams/screens/proposal_screen.dart';
-import 'package:ams/screens/student_screen.dart';
+import 'package:ams/screens/adminofficial/adminofficial_screen.dart';
+import 'package:ams/screens/faculty/approval_screen.dart';
+import 'package:ams/screens/faculty/faculty_screen.dart';
+import 'package:ams/screens/student/digital_screen.dart';
+import 'package:ams/screens/student/progress_screen.dart';
+import 'package:ams/screens/student/proposal_screen.dart';
+import 'package:ams/screens/student/student_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -26,11 +27,12 @@ class MainApp extends StatelessWidget {
       home: const HomeScreen(),
       routes: {
         '/adminofficial': (context) => const AdminOfficial(),
-        '/hod': (context) => const HodScreen(),
+        '/faculty': (context) => const FacultyScreen(),
         '/student': (context) => const StudenScreen(),
         '/proposal': (context) => const ProposalScreen(),
         '/digital': (context) => DigitalLetterScreen(),
-        '/progress': (context) => const ProgressScreen()
+        '/progress': (context) => const ProgressScreen(),
+        '/approval': (context) => ApprovalScreen()
       },
     );
   }

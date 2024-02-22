@@ -58,7 +58,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   button(
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/hod');
+                        Navigator.of(context).pushNamed('/faculty');
                       },
                       child: 'FACULTY / HOD'),
                   const SizedBox(

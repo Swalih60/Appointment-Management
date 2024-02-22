@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../components/components.dart';
+import '../../components/components.dart';
 
-class HodScreen extends StatelessWidget {
-  const HodScreen({super.key});
+class FacultyScreen extends StatelessWidget {
+  const FacultyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +158,9 @@ class HodScreen extends StatelessWidget {
                   height: 70,
                   width: 350,
                   child: button1(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/approval');
+                      },
                       text: 'Approval',
                       icon: Icons.handshake),
                 ),
