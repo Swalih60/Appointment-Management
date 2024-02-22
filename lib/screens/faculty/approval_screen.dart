@@ -43,11 +43,11 @@ class ApprovalScreen extends StatelessWidget {
                   String docID = document.id;
                   Map<String, dynamic> data =
                       document.data() as Map<String, dynamic>;
-                  String requestFrom = data['From'];
-                  String requestTo = data['To'];
-                  String requestSubject = data['Subject'];
-                  String requestBody = data['Body'];
-                  String requestTime = data['TimeStamp'];
+                  String requestFrom = data['From'] ?? 'Unknown';
+                  String requestTo = data['To'] ?? 'Unknown';
+                  String requestSubject = data['Subject'] ?? 'Unknown';
+                  String requestBody = data['Body'] ?? 'Unknown';
+                  String requestTime = data['TimeStamp'] ?? 'Unknown';
 
                   return ListTile(
                     onTap: () {
