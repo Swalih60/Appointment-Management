@@ -47,7 +47,6 @@ class ApprovalScreen extends StatelessWidget {
                   String requestTo = data['To'] ?? 'Unknown';
                   String requestSubject = data['Subject'] ?? 'Unknown';
                   String requestBody = data['Body'] ?? 'Unknown';
-                  String requestTime = data['TimeStamp'] ?? 'Unknown';
 
                   return ListTile(
                     onTap: () {
@@ -61,13 +60,12 @@ class ApprovalScreen extends StatelessWidget {
                                   body: requestBody)));
                     },
                     title: Text((requestFrom)),
-                    trailing: Text(requestTime),
                     subtitle: Text(requestSubject),
                   );
                 },
               );
             } else {
-              return const Text("No Requests");
+              return const Center(child: Text("No Requests"));
             }
           },
         ),

@@ -34,6 +34,14 @@ class RequestScreen extends StatelessWidget {
             style: const TextStyle(color: Colors.black),
           )),
         ),
+        body: Column(
+          children: [
+            Text(from),
+            Text(to),
+            Text(subject),
+            Text(body),
+          ],
+        ),
       ),
     );
   }
