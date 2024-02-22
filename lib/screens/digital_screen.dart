@@ -64,22 +64,25 @@ class DigitalLetterScreen extends StatelessWidget {
                     )),
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0, right: 10),
-                  child: TextField(
-                      controller: body,
-                      textAlign: TextAlign.start,
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 100.0, horizontal: 160.0),
-                        labelText: 'Body',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide:
-                              const BorderSide(color: Colors.blue, width: 2.0),
-                        ),
-                      )),
+                  child: SizedBox(
+                    height: 300,
+                    child: TextField(
+                        expands: true,
+                        maxLines: null,
+                        controller: body,
+                        textAlign: TextAlign.start,
+                        decoration: InputDecoration(
+                          labelText: 'Body',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: const BorderSide(
+                                color: Colors.blue, width: 2.0),
+                          ),
+                        )),
+                  ),
                 ),
                 ElevatedButton(
                     onPressed: () {},
