@@ -90,26 +90,79 @@ class button1 extends StatelessWidget {
 // ignore: camel_case_types, must_be_immutable
 class textfield extends StatelessWidget {
   String text;
+  TextEditingController controller;
 
   textfield({
     Key? key,
     required this.text,
+    required this.controller,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+        controller: controller,
         decoration: InputDecoration(
-      contentPadding:
-          const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
-      labelText: text,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10.0),
-        borderSide: const BorderSide(color: Colors.blue, width: 2.0),
-      ),
-    ));
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+          labelText: text,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+          ),
+        ));
+  }
+}
+
+// ignore: camel_case_types, must_be_immutable
+class row extends StatelessWidget {
+  String text;
+  double width;
+
+  row({
+    Key? key,
+    required this.text,
+    required this.width,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const SizedBox(
+          width: 40,
+        ),
+        Container(
+          height: 30,
+          width: 30,
+          decoration:
+              const BoxDecoration(shape: BoxShape.circle, color: Colors.red),
+        ),
+        const SizedBox(
+          width: 80,
+        ),
+        Text(
+          text,
+          style: const TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 18, color: Colors.red),
+        ),
+        SizedBox(
+          width: width,
+        ),
+        Container(
+          height: 30,
+          width: 30,
+          decoration:
+              const BoxDecoration(shape: BoxShape.circle, color: Colors.red),
+          child: const Icon(
+            Icons.done,
+            color: Colors.white,
+          ),
+        ),
+      ],
+    );
   }
 }

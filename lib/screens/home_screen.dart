@@ -1,4 +1,4 @@
-import 'package:ams/components.dart';
+import 'package:ams/components/components.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -60,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pushNamed('/hod');
                       },
-                      child: 'FACULTY/HOD'),
+                      child: 'FACULTY / HOD'),
                   const SizedBox(
                     height: 20,
                   ),

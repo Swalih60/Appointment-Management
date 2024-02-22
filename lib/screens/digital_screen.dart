@@ -1,8 +1,16 @@
-import 'package:ams/components.dart';
+import 'package:ams/components/components.dart';
+import 'package:ams/models/model.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class DigitalLetterScreen extends StatelessWidget {
-  const DigitalLetterScreen({super.key});
+  DigitalLetterScreen({super.key});
+
+  final FireStoreServices fs = FireStoreServices();
+  TextEditingController from = TextEditingController();
+  TextEditingController to = TextEditingController();
+  TextEditingController subject = TextEditingController();
+  TextEditingController body = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,18 +44,28 @@ class DigitalLetterScreen extends StatelessWidget {
                       right: 150,
                       left: 10,
                     ),
-                    child: textfield(text: 'From')),
+                    child: textfield(
+                      text: 'From',
+                      controller: from,
+                    )),
                 Padding(
                     padding:
                         const EdgeInsets.only(right: 150, left: 10, top: 20),
-                    child: textfield(text: 'To')),
+                    child: textfield(
+                      text: 'To',
+                      controller: to,
+                    )),
                 Padding(
                     padding: const EdgeInsets.only(
                         right: 60, left: 10, top: 20, bottom: 10),
-                    child: textfield(text: 'Subject')),
+                    child: textfield(
+                      text: 'Subject',
+                      controller: subject,
+                    )),
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0, right: 10),
                   child: TextField(
+                      controller: body,
                       textAlign: TextAlign.start,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
@@ -75,7 +93,17 @@ class DigitalLetterScreen extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                button1(onPressed: () {}, text: 'Send', icon: Icons.send)
+                button1(
+                    onPressed: () {
+                      fs.addReq(
+                          from: from.text,
+                          to: to.text,
+                          subject: subject.text,
+                          body: body.text);
+                      Navigator.pop(context);
+                    },
+                    text: 'Send',
+                    icon: Icons.send)
               ],
             ),
           ),

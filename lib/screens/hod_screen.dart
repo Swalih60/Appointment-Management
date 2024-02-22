@@ -1,8 +1,9 @@
-import 'package:ams/components.dart';
 import 'package:flutter/material.dart';
 
-class StudenScreen extends StatelessWidget {
-  const StudenScreen({super.key});
+import '../components/components.dart';
+
+class HodScreen extends StatelessWidget {
+  const HodScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,9 @@ class StudenScreen extends StatelessWidget {
                   ListTile(
                     leading: const Icon(Icons.directions_run),
                     title: const Text("S T A T U S"),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).pushNamed('/progress');
+                    },
                   ),
                   const SizedBox(
                     height: 10,
@@ -113,25 +116,55 @@ class StudenScreen extends StatelessWidget {
             shadowColor: Colors.blue,
             title: const Center(
                 child: Text(
-              "Student",
+              "Faculty",
               style: TextStyle(color: Colors.black),
             )),
           ),
           body: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const SizedBox(
-                  height: 400,
+                Row(
+                  children: [
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    SizedBox(
+                      height: 60,
+                      child: button1(
+                          onPressed: () {},
+                          text: 'New Proposal',
+                          icon: Icons.insert_drive_file),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    SizedBox(
+                      height: 60,
+                      child: button1(
+                          onPressed: () {},
+                          text: 'Progress ',
+                          icon: Icons.directions_run),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                  ],
                 ),
-                button(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/proposal');
-                    },
-                    child: 'NEW PROPOSAL'),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
-                button(onPressed: () {}, child: 'PROGRESS TRACKER')
+                SizedBox(
+                  height: 70,
+                  width: 350,
+                  child: button1(
+                      onPressed: () {},
+                      text: 'Approval',
+                      icon: Icons.handshake),
+                ),
+                const SizedBox(
+                  height: 60,
+                )
               ],
             ),
           )),

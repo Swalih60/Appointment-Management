@@ -1,13 +1,18 @@
-import 'package:ams/adminofficial_screen.dart';
-import 'package:ams/digital_screen.dart';
-import 'package:ams/hod_screen.dart';
-import 'package:ams/proposal_screen.dart';
-import 'package:ams/student_screen.dart';
+import 'package:ams/firebase_options.dart';
+import 'package:ams/screens/adminofficial_screen.dart';
+import 'package:ams/screens/digital_screen.dart';
+import 'package:ams/screens/hod_screen.dart';
+import 'package:ams/screens/progress_screen.dart';
+import 'package:ams/screens/proposal_screen.dart';
+import 'package:ams/screens/student_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'home_screen.dart';
+import 'screens/home_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MainApp());
 }
 
@@ -24,7 +29,8 @@ class MainApp extends StatelessWidget {
         '/hod': (context) => const HodScreen(),
         '/student': (context) => const StudenScreen(),
         '/proposal': (context) => const ProposalScreen(),
-        '/digital': (context) => const DigitalLetterScreen()
+        '/digital': (context) => DigitalLetterScreen(),
+        '/progress': (context) => const ProgressScreen()
       },
     );
   }

@@ -1,4 +1,4 @@
-import 'package:ams/components.dart';
+import 'package:ams/components/components.dart';
 import 'package:flutter/material.dart';
 
 class ProposalScreen extends StatelessWidget {
