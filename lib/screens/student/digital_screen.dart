@@ -20,9 +20,11 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
 
   final TextEditingController body = TextEditingController();
 
+  String selectedItem = 'S1';
+  String selectedItem1 = 'MECH';
+
   @override
   Widget build(BuildContext context) {
-    String selectedItem = '1';
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -56,52 +58,93 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
                       text: 'From',
                       controller: from,
                     )),
-                DropdownButton<String>(
-                  icon: const Icon(Icons.arrow_drop_down),
-                  value: selectedItem,
-                  items: const [
-                    DropdownMenuItem(
-                      value: '1',
-                      child: Text("S1"),
-                    ),
-                    DropdownMenuItem(
-                      value: '2',
-                      child: Text("S2"),
-                    ),
-                    DropdownMenuItem(
-                      value: '3',
-                      child: Text("S3"),
-                    ),
-                    DropdownMenuItem(
-                      value: '4',
-                      child: Text("S4"),
-                    ),
-                    DropdownMenuItem(
-                      value: '5',
-                      child: Text("S5"),
-                    ),
-                    DropdownMenuItem(
-                      value: '6',
-                      child: Text("S6"),
-                    ),
-                    DropdownMenuItem(
-                      value: '7',
-                      child: Text("S7"),
-                    ),
-                    DropdownMenuItem(
-                      value: '8',
-                      child: Text("S8"),
-                    ),
-                  ],
-                  onChanged: (newValue) {
-                    setState(() {
-                      selectedItem = newValue!;
-                    });
-                  },
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: Row(
+                    children: [
+                      DropdownButton<String>(
+                        icon: const Icon(Icons.arrow_drop_down),
+                        value: selectedItem1,
+                        items: const [
+                          DropdownMenuItem(
+                            value: 'CSE',
+                            child: Text("CSE"),
+                          ),
+                          DropdownMenuItem<String>(
+                            value: 'EC',
+                            child: Text("EC"),
+                          ),
+                          DropdownMenuItem<String>(
+                            value: 'CIVIL',
+                            child: Text("CIVIL"),
+                          ),
+                          DropdownMenuItem<String>(
+                            value: 'MECH',
+                            child: Text("MECH"),
+                          ),
+                          DropdownMenuItem<String>(
+                            value: 'EEE',
+                            child: Text("EEE"),
+                          ),
+                        ],
+                        onChanged: (newValue) {
+                          setState(() {
+                            selectedItem1 = newValue!;
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        width: 30,
+                      ),
+                      DropdownButton<String>(
+                        icon: const Icon(Icons.arrow_drop_down),
+                        value: selectedItem,
+                        items: const [
+                          DropdownMenuItem(
+                            value: 'S1',
+                            child: Text("S1"),
+                          ),
+                          DropdownMenuItem<String>(
+                            value: 'S2',
+                            child: Text("S2"),
+                          ),
+                          DropdownMenuItem<String>(
+                            value: 'S3',
+                            child: Text("S3"),
+                          ),
+                          DropdownMenuItem<String>(
+                            value: 'S4',
+                            child: Text("S4"),
+                          ),
+                          DropdownMenuItem<String>(
+                            value: 'S5',
+                            child: Text("S5"),
+                          ),
+                          DropdownMenuItem<String>(
+                            value: 'S6',
+                            child: Text("S6"),
+                          ),
+                          DropdownMenuItem<String>(
+                            value: 'S7',
+                            child: Text("S7"),
+                          ),
+                          DropdownMenuItem<String>(
+                            value: 'S8',
+                            child: Text("S8"),
+                          ),
+                        ],
+                        onChanged: (newValue) {
+                          setState(() {
+                            selectedItem = newValue!;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                 ),
                 Padding(
                     padding:
-                        const EdgeInsets.only(right: 150, left: 10, top: 20),
+                        const EdgeInsets.only(right: 150, left: 10, top: 5),
                     child: textfield(
                       text: 'To',
                       controller: to,
@@ -146,7 +189,7 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
                       ],
                     )),
                 const SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 button1(
                     onPressed: () {
