@@ -79,6 +79,7 @@ class StudenScreen extends StatelessWidget {
                 ],
               )),
           appBar: AppBar(
+            centerTitle: true,
             actions: [
               InkWell(
                 splashColor: Colors.black,
@@ -113,11 +114,10 @@ class StudenScreen extends StatelessWidget {
             iconTheme: const IconThemeData(color: Colors.black),
             backgroundColor: const Color.fromARGB(255, 183, 214, 240),
             shadowColor: Colors.blue,
-            title: const Center(
-                child: Text(
+            title: const Text(
               "Student",
               style: TextStyle(color: Colors.black),
-            )),
+            ),
           ),
           body: Center(
             child: Column(

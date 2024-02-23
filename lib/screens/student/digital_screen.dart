@@ -2,15 +2,14 @@ import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class DigitalLetterScreen extends StatelessWidget {
   DigitalLetterScreen({super.key});
 
   final FireStoreServices fs = FireStoreServices();
-  TextEditingController from = TextEditingController();
-  TextEditingController to = TextEditingController();
-  TextEditingController subject = TextEditingController();
-  TextEditingController body = TextEditingController();
+  final TextEditingController from = TextEditingController();
+  final TextEditingController to = TextEditingController();
+  final TextEditingController subject = TextEditingController();
+  final TextEditingController body = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +24,10 @@ class DigitalLetterScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: const Center(
-            child: Text(
-              'Digital Letter',
-              style: TextStyle(color: Colors.black),
-            ),
+          centerTitle: true,
+          title: const Text(
+            'Digital Letter',
+            style: TextStyle(color: Colors.black),
           ),
           backgroundColor: const Color.fromARGB(255, 183, 214, 240),
           shadowColor: Colors.blue,
@@ -67,6 +65,7 @@ class DigitalLetterScreen extends StatelessWidget {
                   child: SizedBox(
                     height: 300,
                     child: TextField(
+                        textAlignVertical: TextAlignVertical.top,
                         expands: true,
                         maxLines: null,
                         controller: body,

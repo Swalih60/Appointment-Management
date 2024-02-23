@@ -17,11 +17,11 @@ class ProposalScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: const Center(
-              child: Text(
+          centerTitle: true,
+          title: const Text(
             'NEW PROPOSAL',
             style: TextStyle(color: Colors.black),
-          )),
+          ),
           backgroundColor: const Color.fromARGB(255, 183, 214, 240),
           shadowColor: Colors.blue,
           iconTheme: const IconThemeData(color: Colors.black),

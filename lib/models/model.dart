@@ -12,7 +12,7 @@ class FireStoreServices {
     return requests.add({
       'From': from,
       'To': to,
-      'Subjest': subject,
+      'Subject': subject,
       'Body': body,
       'TimeStamp': Timestamp.now(),
     });

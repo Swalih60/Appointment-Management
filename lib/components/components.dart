@@ -1,12 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-// ignore: camel_case_types, must_be_immutable
+// ignore: camel_case_types
 class button extends StatelessWidget {
-  String child;
-  Function()? onPressed;
+  final String child;
+  final Function()? onPressed;
 
-  button({
+  const button({
     Key? key,
     required this.onPressed,
     required this.child,
@@ -45,12 +46,12 @@ class button1 extends StatelessWidget {
   final Function()? onPressed;
   final IconData icon;
 
-  const button1(
-      {Key? key,
-      required this.onPressed,
-      required this.text,
-      required this.icon})
-      : super(key: key);
+  const button1({
+    Key? key,
+    required this.onPressed,
+    required this.text,
+    required this.icon,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -87,12 +88,12 @@ class button1 extends StatelessWidget {
   }
 }
 
-// ignore: camel_case_types, must_be_immutable
+// ignore: camel_case_types
 class textfield extends StatelessWidget {
-  String text;
-  TextEditingController controller;
+  final String text;
+  final TextEditingController controller;
 
-  textfield({
+  const textfield({
     Key? key,
     required this.text,
     required this.controller,
@@ -117,10 +118,10 @@ class textfield extends StatelessWidget {
   }
 }
 
-// ignore: camel_case_types, must_be_immutable
+// ignore: camel_case_types
 class row extends StatelessWidget {
-  String text;
-  double width;
+  final String text;
+  final double width;
 
   row({
     Key? key,
@@ -163,6 +164,55 @@ class row extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+// ignore: camel_case_types
+class listile extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final DateTime trailing;
+  final Function()? onTap;
+
+  const listile({
+    Key? key,
+    required this.trailing,
+    required this.title,
+    required this.subtitle,
+    this.onTap,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    String trailingText = DateFormat('dd/MM/yyyy \n HH:mm a').format(trailing);
+
+    return Card(
+      elevation: 4.0,
+      margin: const EdgeInsets.all(8.0),
+      child: Container(
+        color: const Color.fromARGB(255, 114, 189, 250),
+        child: ListTile(
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          onTap: onTap,
+          title: Text(
+            title,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18.0,
+              color: Colors.black,
+            ),
+          ),
+          subtitle: Text(
+            subtitle,
+            style: TextStyle(
+              fontSize: 14.0,
+              color: Colors.grey[700],
+            ),
+          ),
+          trailing: Text(trailingText),
+        ),
+      ),
     );
   }
 }

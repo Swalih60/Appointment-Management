@@ -1,3 +1,4 @@
+import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
 import 'package:ams/screens/faculty/requests.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,13 +23,14 @@ class ApprovalScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+          iconTheme: const IconThemeData(color: Colors.black),
+          centerTitle: true,
           backgroundColor: const Color.fromARGB(255, 183, 214, 240),
           shadowColor: Colors.blue,
-          title: const Center(
-              child: Text(
+          title: const Text(
             "Requests",
             style: TextStyle(color: Colors.black),
-          )),
+          ),
         ),
         body: StreamBuilder<QuerySnapshot>(
           stream: fs.getrequests(),
@@ -47,20 +49,25 @@ class ApprovalScreen extends StatelessWidget {
                   String requestTo = data['To'] ?? 'Unknown';
                   String requestSubject = data['Subject'] ?? 'Unknown';
                   String requestBody = data['Body'] ?? 'Unknown';
+                  Timestamp requestTime = data['TimeStamp'] ?? 'Unknown';
 
-                  return ListTile(
+                  DateTime dateTime = requestTime.toDate();
+
+                  return listile(
                     onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => RequestScreen(
-                                  from: requestFrom,
-                                  to: requestTo,
-                                  subject: requestSubject,
-                                  body: requestBody)));
+                                    from: requestFrom,
+                                    to: requestTo,
+                                    subject: requestSubject,
+                                    body: requestBody,
+                                  )));
                     },
-                    title: Text((requestFrom)),
-                    subtitle: Text(requestSubject),
+                    title: requestFrom,
+                    trailing: dateTime,
+                    subtitle: requestSubject,
                   );
                 },
               );

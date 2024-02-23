@@ -80,6 +80,7 @@ class FacultyScreen extends StatelessWidget {
                 ],
               )),
           appBar: AppBar(
+            centerTitle: true,
             actions: [
               InkWell(
                 splashColor: Colors.black,
@@ -114,11 +115,10 @@ class FacultyScreen extends StatelessWidget {
             iconTheme: const IconThemeData(color: Colors.black),
             backgroundColor: const Color.fromARGB(255, 183, 214, 240),
             shadowColor: Colors.blue,
-            title: const Center(
-                child: Text(
+            title: const Text(
               "Faculty",
               style: TextStyle(color: Colors.black),
-            )),
+            ),
           ),
           body: Center(
             child: Column(

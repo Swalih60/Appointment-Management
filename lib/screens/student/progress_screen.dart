@@ -17,6 +17,7 @@ class ProgressScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+          centerTitle: true,
           actions: const [
             Padding(
               padding: EdgeInsets.only(right: 20.0),
@@ -28,14 +29,10 @@ class ProgressScreen extends StatelessWidget {
           iconTheme: const IconThemeData(color: Colors.black),
           backgroundColor: const Color.fromARGB(255, 183, 214, 240),
           shadowColor: Colors.blue,
-          title: const Center(
-              child: Padding(
-            padding: EdgeInsets.only(right: 10.0),
-            child: Text(
-              "Progress Tracker",
-              style: TextStyle(color: Colors.black),
-            ),
-          )),
+          title: const Text(
+            "Progress Tracker",
+            style: TextStyle(color: Colors.black),
+          ),
         ),
         body: Center(
           child: Column(
