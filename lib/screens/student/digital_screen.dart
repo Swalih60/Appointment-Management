@@ -22,6 +22,7 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
 
   String selectedItem = 'S1';
   String selectedItem1 = 'MECH';
+  String selectedItem2 = '1';
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,7 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
                         icon: const Icon(Icons.arrow_drop_down),
                         value: selectedItem1,
                         items: const [
-                          DropdownMenuItem(
+                          DropdownMenuItem<String>(
                             value: 'CSE',
                             child: Text("CSE"),
                           ),
@@ -100,7 +101,7 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
                         icon: const Icon(Icons.arrow_drop_down),
                         value: selectedItem,
                         items: const [
-                          DropdownMenuItem(
+                          DropdownMenuItem<String>(
                             value: 'S1',
                             child: Text("S1"),
                           ),
@@ -142,13 +143,55 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
                     ],
                   ),
                 ),
-                Padding(
-                    padding:
-                        const EdgeInsets.only(right: 150, left: 10, top: 5),
-                    child: textfield(
-                      text: 'To',
-                      controller: to,
-                    )),
+                Row(
+                  children: [
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    const Text(
+                      "To:     ",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    DropdownButton<String>(
+                      icon: const Icon(Icons.arrow_drop_down),
+                      value: selectedItem2,
+                      items: const [
+                        DropdownMenuItem<String>(
+                          value: '1',
+                          child: Text("FACULTY"),
+                        ),
+                        DropdownMenuItem<String>(
+                          value: '2',
+                          child: Text("HOD"),
+                        ),
+                        DropdownMenuItem<String>(
+                          value: '3',
+                          child: Text("VICE PRINCIPAL"),
+                        ),
+                        DropdownMenuItem<String>(
+                          value: '4',
+                          child: Text("PRINCIPAL"),
+                        ),
+                        DropdownMenuItem<String>(
+                          value: '5',
+                          child: Text("ASST MANAGER"),
+                        ),
+                        DropdownMenuItem<String>(
+                          value: '6',
+                          child: Text("MANAGER"),
+                        ),
+                      ],
+                      onChanged: (newValue) {
+                        setState(() {
+                          selectedItem2 = newValue!;
+                        });
+                      },
+                    ),
+                  ],
+                ),
                 Padding(
                     padding: const EdgeInsets.only(
                         right: 60, left: 10, top: 20, bottom: 10),
