@@ -2,7 +2,7 @@
 import 'package:ams/models/model.dart';
 import 'package:flutter/material.dart';
 
-class RequestFacScreen extends StatelessWidget {
+class RequestAsstScreen extends StatelessWidget {
   final FireStoreServices fs = FireStoreServices();
   final String from;
   final String to;
@@ -10,7 +10,7 @@ class RequestFacScreen extends StatelessWidget {
   final String body;
   final String docId;
 
-  RequestFacScreen(
+  RequestAsstScreen(
       {super.key,
       required this.from,
       required this.to,
@@ -102,12 +102,7 @@ class RequestFacScreen extends StatelessWidget {
                           backgroundColor:
                               const MaterialStatePropertyAll(Colors.green),
                         ),
-                        onPressed: () {
-                          int? toValue = int.tryParse(to);
-                          if (toValue != null && toValue > 1) {
-                            fs.updateReq(docId, 'FacultyApproval');
-                          }
-                        },
+                        onPressed: () {},
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [

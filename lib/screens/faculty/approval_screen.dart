@@ -59,7 +59,7 @@ class ApprovalFacultyScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RequestScreen(
+                              builder: (context) => RequestFacScreen(
                                     docId: docID,
                                     from: requestFrom,
                                     to: requestTo,

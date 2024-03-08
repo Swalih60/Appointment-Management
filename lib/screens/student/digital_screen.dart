@@ -179,10 +179,6 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
                           value: '5',
                           child: Text("ASST MANAGER"),
                         ),
-                        DropdownMenuItem<String>(
-                          value: '6',
-                          child: Text("MANAGER"),
-                        ),
                       ],
                       onChanged: (newValue) {
                         setState(() {
@@ -237,8 +233,10 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
                 button1(
                     onPressed: () {
                       fs.addReq(
+                          branch: selectedItem1,
+                          sem: selectedItem,
                           from: from.text,
-                          to: to.text,
+                          to: selectedItem2,
                           subject: subject.text,
                           body: body.text);
                       Navigator.pop(context);

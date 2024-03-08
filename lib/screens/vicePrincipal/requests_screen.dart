@@ -2,7 +2,7 @@
 import 'package:ams/models/model.dart';
 import 'package:flutter/material.dart';
 
-class RequestFacScreen extends StatelessWidget {
+class RequestViceScreen extends StatelessWidget {
   final FireStoreServices fs = FireStoreServices();
   final String from;
   final String to;
@@ -10,7 +10,7 @@ class RequestFacScreen extends StatelessWidget {
   final String body;
   final String docId;
 
-  RequestFacScreen(
+  RequestViceScreen(
       {super.key,
       required this.from,
       required this.to,
@@ -104,8 +104,8 @@ class RequestFacScreen extends StatelessWidget {
                         ),
                         onPressed: () {
                           int? toValue = int.tryParse(to);
-                          if (toValue != null && toValue > 1) {
-                            fs.updateReq(docId, 'FacultyApproval');
+                          if (toValue != null && toValue > 3) {
+                            fs.updateReq(docId, 'ViceApproval');
                           }
                         },
                         child: const Row(

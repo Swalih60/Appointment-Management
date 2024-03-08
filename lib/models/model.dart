@@ -7,9 +7,13 @@ class FireStoreServices {
   Future<void> addReq(
       {required String subject,
       required String to,
+      required String branch,
+      required String sem,
       required String from,
       required String body}) {
     return requests.add({
+      'Branch': branch,
+      'Sem': sem,
       'From': from,
       'To': to,
       'Subject': subject,
@@ -17,10 +21,8 @@ class FireStoreServices {
       'TimeStamp': Timestamp.now(),
       'FacultyApproval': false,
       'HodApproval': false,
-      'VicePrincipalApproval': false,
+      'ViceApproval': false,
       'PrincipalApproval': false,
-      'AsstManagerApproval': false,
-      'ManagerApproval': false,
     });
   }
 

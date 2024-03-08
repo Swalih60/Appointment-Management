@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   const SizedBox(
-                    height: 80,
+                    height: 30,
                   ),
                   Container(
                     height: 150,
@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 80,
+                    height: 50,
                   ),
                   const Text(
                     "Choose Your category",
@@ -50,9 +50,25 @@ class HomeScreen extends StatelessWidget {
                   ),
                   button(
                       onPressed: () {
+                        Navigator.of(context).pushNamed('/asst');
+                      },
+                      child: 'ASST MANAGER'),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  button(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/principal');
+                      },
+                      child: 'PRINCIPAL'),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  button(
+                      onPressed: () {
                         Navigator.of(context).pushNamed('/vice');
                       },
-                      child: 'Vice Principal'),
+                      child: 'VICE PRINCIPAL'),
                   const SizedBox(
                     height: 20,
                   ),

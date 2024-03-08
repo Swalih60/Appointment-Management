@@ -1,15 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
-import 'package:ams/screens/hod/requests_screen.dart';
+import 'package:ams/screens/principal/requests.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class ApprovalHodScreen extends StatelessWidget {
+class ApprovalPrincipalScreen extends StatelessWidget {
   FireStoreServices fs = FireStoreServices();
 
-  ApprovalHodScreen({
+  ApprovalPrincipalScreen({
     Key? key,
   }) : super(key: key);
 
@@ -37,7 +37,7 @@ class ApprovalHodScreen extends StatelessWidget {
         ),
         body: StreamBuilder<QuerySnapshot>(
           stream: fs.requests
-              .where('FacultyApproval', isEqualTo: true)
+              .where('ViceApproval', isEqualTo: true)
               .orderBy('TimeStamp', descending: true)
               .snapshots(),
           builder: (context, snapshot) {
@@ -56,7 +56,7 @@ class ApprovalHodScreen extends StatelessWidget {
                   String requestTo = data['To'] ?? 'Unknown';
                   String requestSubject = data['Subject'] ?? 'Unknown';
                   String requestBody = data['Body'] ?? 'Unknown';
-                  // String facultyApproval = data['FacultyApproval'] ?? 'Unknown';
+                  // String hodApproval = data['HodApproval'] ?? 'Unknown';
                   Timestamp requestTime = data['TimeStamp'] ?? 'Unknown';
 
                   DateTime dateTime = requestTime.toDate();
@@ -66,7 +66,7 @@ class ApprovalHodScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RequestHodScreen(
+                              builder: (context) => RequestPrincipalScreen(
                                     docId: docID,
                                     from: requestFrom,
                                     to: requestTo,

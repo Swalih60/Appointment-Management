@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../components/components.dart';
 
-class VicePrincipalScreen extends StatelessWidget {
-  const VicePrincipalScreen({super.key});
+class AsstScreen extends StatelessWidget {
+  const AsstScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +116,7 @@ class VicePrincipalScreen extends StatelessWidget {
             backgroundColor: const Color.fromARGB(255, 183, 214, 240),
             shadowColor: Colors.blue,
             title: const Text(
-              "VICE PRINCIPAL",
+              "ASST MANAGER",
               style: TextStyle(color: Colors.black),
             ),
           ),
@@ -129,7 +129,7 @@ class VicePrincipalScreen extends StatelessWidget {
                   width: 350,
                   child: button1(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/approval_vice');
+                        Navigator.pushNamed(context, '/approval_asst');
                       },
                       text: 'Approval',
                       icon: Icons.handshake),

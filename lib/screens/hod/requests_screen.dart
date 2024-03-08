@@ -2,7 +2,7 @@
 import 'package:ams/models/model.dart';
 import 'package:flutter/material.dart';
 
-class RequestScreenHod extends StatelessWidget {
+class RequestHodScreen extends StatelessWidget {
   final FireStoreServices fs = FireStoreServices();
   final String from;
   final String to;
@@ -10,7 +10,7 @@ class RequestScreenHod extends StatelessWidget {
   final String body;
   final String docId;
 
-  RequestScreenHod(
+  RequestHodScreen(
       {super.key,
       required this.from,
       required this.to,
@@ -103,7 +103,10 @@ class RequestScreenHod extends StatelessWidget {
                               const MaterialStatePropertyAll(Colors.green),
                         ),
                         onPressed: () {
-                          fs.updateReq(docId, 'HodApproval');
+                          int? toValue = int.tryParse(to);
+                          if (toValue != null && toValue > 2) {
+                            fs.updateReq(docId, 'HodApproval');
+                          }
                         },
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,

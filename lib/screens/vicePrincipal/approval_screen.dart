@@ -1,15 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
-import 'package:ams/screens/faculty/requests_screen.dart';
+import 'package:ams/screens/vicePrincipal/requests_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class ApprovalVicePrincipalScreen extends StatelessWidget {
+class ApprovalViceScreen extends StatelessWidget {
   FireStoreServices fs = FireStoreServices();
 
-  ApprovalVicePrincipalScreen({
+  ApprovalViceScreen({
     Key? key,
   }) : super(key: key);
 
@@ -66,7 +66,7 @@ class ApprovalVicePrincipalScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RequestScreen(
+                              builder: (context) => RequestViceScreen(
                                     docId: docID,
                                     from: requestFrom,
                                     to: requestTo,
