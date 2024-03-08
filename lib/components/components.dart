@@ -123,7 +123,7 @@ class row extends StatelessWidget {
   final String text;
   final double width;
 
-  row({
+  const row({
     Key? key,
     required this.text,
     required this.width,

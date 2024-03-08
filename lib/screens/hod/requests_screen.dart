@@ -1,16 +1,21 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:ams/models/model.dart';
 import 'package:flutter/material.dart';
 
-class RequestScreen extends StatelessWidget {
+class RequestScreenHod extends StatelessWidget {
+  final FireStoreServices fs = FireStoreServices();
   final String from;
   final String to;
   final String subject;
   final String body;
+  final String docId;
 
-  const RequestScreen(
+  RequestScreenHod(
       {super.key,
       required this.from,
       required this.to,
       required this.subject,
+      required this.docId,
       required this.body});
 
   @override
@@ -97,7 +102,9 @@ class RequestScreen extends StatelessWidget {
                           backgroundColor:
                               const MaterialStatePropertyAll(Colors.green),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          fs.updateReq(docId, 'HodApproval');
+                        },
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [

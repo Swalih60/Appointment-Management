@@ -15,12 +15,22 @@ class FireStoreServices {
       'Subject': subject,
       'Body': body,
       'TimeStamp': Timestamp.now(),
+      'FacultyApproval': false,
+      'HodApproval': false,
+      'VicePrincipalApproval': false,
+      'PrincipalApproval': false,
+      'AsstManagerApproval': false,
+      'ManagerApproval': false,
     });
   }
 
-  Stream<QuerySnapshot> getrequests() {
-    final requestStream =
-        requests.orderBy('TimeStamp', descending: true).snapshots();
-    return requestStream;
+  Future<void> updateReq(String docID, String name) {
+    return requests.doc(docID).update({name: true});
   }
+
+  // Stream<QuerySnapshot> getrequests() {
+  //   final requestStream =
+  //       requests.orderBy('TimeStamp', descending: true).snapshots();
+  //   return requestStream;
+  // }
 }

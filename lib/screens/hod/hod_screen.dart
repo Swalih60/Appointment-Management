@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../components/components.dart';
 
-class FacultyScreen extends StatelessWidget {
-  const FacultyScreen({super.key});
+class HodScreen extends StatelessWidget {
+  const HodScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +116,7 @@ class FacultyScreen extends StatelessWidget {
             backgroundColor: const Color.fromARGB(255, 183, 214, 240),
             shadowColor: Colors.blue,
             title: const Text(
-              "FACULTY",
+              "HOD",
               style: TextStyle(color: Colors.black),
             ),
           ),
@@ -159,7 +159,7 @@ class FacultyScreen extends StatelessWidget {
                   width: 350,
                   child: button1(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/approval_faculty');
+                        Navigator.pushNamed(context, '/approval_hod');
                       },
                       text: 'Approval',
                       icon: Icons.handshake),

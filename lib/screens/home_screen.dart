@@ -50,9 +50,17 @@ class HomeScreen extends StatelessWidget {
                   ),
                   button(
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/adminofficial');
+                        Navigator.of(context).pushNamed('/vice');
                       },
-                      child: 'ADMINISTRATIVE OFFICIAL'),
+                      child: 'Vice Principal'),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  button(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/hod');
+                      },
+                      child: 'HOD'),
                   const SizedBox(
                     height: 20,
                   ),
@@ -60,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pushNamed('/faculty');
                       },
-                      child: 'FACULTY / HOD'),
+                      child: 'FACULTY'),
                   const SizedBox(
                     height: 20,
                   ),

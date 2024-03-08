@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
 import 'package:ams/screens/faculty/requests_screen.dart';
@@ -5,10 +6,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class ApprovalFacultyScreen extends StatelessWidget {
+class ApprovalVicePrincipalScreen extends StatelessWidget {
   FireStoreServices fs = FireStoreServices();
 
-  ApprovalFacultyScreen({super.key});
+  ApprovalVicePrincipalScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +36,10 @@ class ApprovalFacultyScreen extends StatelessWidget {
           ),
         ),
         body: StreamBuilder<QuerySnapshot>(
-          stream:
-              fs.requests.orderBy('TimeStamp', descending: true).snapshots(),
+          stream: fs.requests
+              .where('HodApproval', isEqualTo: true)
+              .orderBy('TimeStamp', descending: true)
+              .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List requestList = snapshot.data!.docs;
@@ -44,12 +49,14 @@ class ApprovalFacultyScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   DocumentSnapshot document = requestList[index];
                   String docID = document.id;
+
                   Map<String, dynamic> data =
                       document.data() as Map<String, dynamic>;
                   String requestFrom = data['From'] ?? 'Unknown';
                   String requestTo = data['To'] ?? 'Unknown';
                   String requestSubject = data['Subject'] ?? 'Unknown';
                   String requestBody = data['Body'] ?? 'Unknown';
+                  // String hodApproval = data['HodApproval'] ?? 'Unknown';
                   Timestamp requestTime = data['TimeStamp'] ?? 'Unknown';
 
                   DateTime dateTime = requestTime.toDate();

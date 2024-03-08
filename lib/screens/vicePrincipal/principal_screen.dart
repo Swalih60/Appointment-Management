@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../components/components.dart';
 
-class FacultyScreen extends StatelessWidget {
-  const FacultyScreen({super.key});
+class VicePrincipalScreen extends StatelessWidget {
+  const VicePrincipalScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +116,7 @@ class FacultyScreen extends StatelessWidget {
             backgroundColor: const Color.fromARGB(255, 183, 214, 240),
             shadowColor: Colors.blue,
             title: const Text(
-              "FACULTY",
+              "VICE PRINCIPAL",
               style: TextStyle(color: Colors.black),
             ),
           ),
@@ -124,42 +124,12 @@ class FacultyScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Row(
-                  children: [
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    SizedBox(
-                      height: 60,
-                      child: button1(
-                          onPressed: () {},
-                          text: 'New Proposal',
-                          icon: Icons.insert_drive_file),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    SizedBox(
-                      height: 60,
-                      child: button1(
-                          onPressed: () {},
-                          text: 'Progress ',
-                          icon: Icons.directions_run),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
                 SizedBox(
                   height: 70,
                   width: 350,
                   child: button1(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/approval_faculty');
+                        Navigator.pushNamed(context, '/approval_vice');
                       },
                       text: 'Approval',
                       icon: Icons.handshake),

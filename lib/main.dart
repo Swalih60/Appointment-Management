@@ -1,11 +1,14 @@
 import 'package:ams/firebase_options.dart';
-import 'package:ams/screens/adminofficial/adminofficial_screen.dart';
 import 'package:ams/screens/faculty/approval_screen.dart';
 import 'package:ams/screens/faculty/faculty_screen.dart';
+import 'package:ams/screens/hod/approval_screen.dart';
+import 'package:ams/screens/hod/hod_screen.dart';
 import 'package:ams/screens/student/digital_screen.dart';
 import 'package:ams/screens/student/progress_screen.dart';
 import 'package:ams/screens/student/proposal_screen.dart';
 import 'package:ams/screens/student/student_screen.dart';
+import 'package:ams/screens/vicePrincipal/approval_screen.dart';
+import 'package:ams/screens/vicePrincipal/principal_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -26,13 +29,16 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const HomeScreen(),
       routes: {
-        '/adminofficial': (context) => const AdminOfficial(),
+        '/vice': (context) => const VicePrincipalScreen(),
         '/faculty': (context) => const FacultyScreen(),
         '/student': (context) => const StudenScreen(),
         '/proposal': (context) => const ProposalScreen(),
         '/digital': (context) => const DigitalLetterScreen(),
         '/progress': (context) => const ProgressScreen(),
-        '/approval': (context) => ApprovalScreen()
+        '/hod': (context) => const HodScreen(),
+        '/approval_faculty': (context) => ApprovalFacultyScreen(),
+        '/approval_hod': (context) => ApprovalHodScreen(),
+        '/approval_vice': (context) => ApprovalVicePrincipalScreen(),
       },
     );
   }
