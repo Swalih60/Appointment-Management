@@ -107,6 +107,12 @@ class RequestHodScreen extends StatelessWidget {
                           if (toValue != null && toValue > 2) {
                             fs.updateReq(docId, 'HodApproval');
                           }
+
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text("Approved"),
+                            backgroundColor: Colors.green,
+                          ));
                         },
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,
@@ -140,7 +146,13 @@ class RequestHodScreen extends StatelessWidget {
                         backgroundColor:
                             const MaterialStatePropertyAll(Colors.red),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Rejected"),
+                          backgroundColor: Colors.red,
+                        ));
+                      },
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

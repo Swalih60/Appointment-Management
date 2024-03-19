@@ -107,6 +107,12 @@ class RequestViceScreen extends StatelessWidget {
                           if (toValue != null && toValue > 3) {
                             fs.updateReq(docId, 'ViceApproval');
                           }
+
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text("Approved"),
+                            backgroundColor: Colors.green,
+                          ));
                         },
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,
@@ -140,7 +146,13 @@ class RequestViceScreen extends StatelessWidget {
                         backgroundColor:
                             const MaterialStatePropertyAll(Colors.red),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Rejected"),
+                          backgroundColor: Colors.red,
+                        ));
+                      },
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

@@ -107,6 +107,12 @@ class RequestPrincipalScreen extends StatelessWidget {
                           if (toValue != null && toValue > 4) {
                             fs.updateReq(docId, 'PrincipalApproval');
                           }
+
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text("Approved"),
+                            backgroundColor: Colors.green,
+                          ));
                         },
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,
@@ -140,7 +146,13 @@ class RequestPrincipalScreen extends StatelessWidget {
                         backgroundColor:
                             const MaterialStatePropertyAll(Colors.red),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Rejected"),
+                          backgroundColor: Colors.red,
+                        ));
+                      },
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

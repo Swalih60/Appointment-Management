@@ -232,14 +232,29 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
                 ),
                 button1(
                     onPressed: () {
-                      fs.addReq(
-                          branch: selectedItem1,
-                          sem: selectedItem,
-                          from: from.text,
-                          to: selectedItem2,
-                          subject: subject.text,
-                          body: body.text);
-                      Navigator.pop(context);
+                      if (from.text.isEmpty ||
+                          subject.text.isEmpty ||
+                          body.text.isEmpty) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Empty field"),
+                          backgroundColor: Colors.red,
+                        ));
+                      } else {
+                        fs.addReq(
+                            branch: selectedItem1,
+                            sem: selectedItem,
+                            from: from.text,
+                            to: selectedItem2,
+                            subject: subject.text,
+                            body: body.text);
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Sent Successfully"),
+                          backgroundColor: Colors.red,
+                        ));
+                      }
                     },
                     text: 'Send',
                     icon: Icons.send)
