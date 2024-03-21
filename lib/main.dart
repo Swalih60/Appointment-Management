@@ -40,7 +40,7 @@ class MainApp extends StatelessWidget {
         '/student': (context) => const StudenScreen(),
         '/proposal': (context) => const ProposalScreen(),
         '/digital': (context) => const DigitalLetterScreen(),
-        '/progress': (context) => const ProgressScreen(),
+        '/progress': (context) => ProgressScreen(),
         '/hod': (context) => const HodScreen(),
         '/approval_faculty': (context) => ApprovalFacultyScreen(),
         '/approval_hod': (context) => ApprovalHodScreen(),

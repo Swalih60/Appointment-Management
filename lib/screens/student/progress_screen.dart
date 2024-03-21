@@ -1,5 +1,10 @@
-import 'package:ams/components/components.dart';
 import 'package:flutter/material.dart';
+
+final ValueNotifier<Color> facColor = ValueNotifier(Colors.red);
+final ValueNotifier<Color> hodColor = ValueNotifier(Colors.red);
+final ValueNotifier<Color> viceColor = ValueNotifier(Colors.red);
+final ValueNotifier<Color> princColor = ValueNotifier(Colors.red);
+final ValueNotifier<Color> asstColor = ValueNotifier(Colors.red);
 
 class ProgressScreen extends StatelessWidget {
   const ProgressScreen({super.key});
@@ -35,51 +40,127 @@ class ProgressScreen extends StatelessWidget {
           ),
         ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              row(
-                text: 'Senior Advisor',
-                width: 60,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              row(
-                text: 'HOD',
-                width: 143,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              row(
-                text: 'Vice Principal',
-                width: 68,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              row(
-                text: 'Principal',
-                width: 106,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              row(
-                text: 'Asst Manager',
-                width: 65,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              row(
-                text: 'Manager',
-                width: 108,
-              ),
-            ],
-          ),
-        ),
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            ValueListenableBuilder(
+              valueListenable: facColor,
+              builder: (context, value, child) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      height: 30,
+                      width: 30,
+                      decoration:
+                          BoxDecoration(shape: BoxShape.circle, color: value),
+                    ),
+                    Text(
+                      "FACULTY",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, color: value),
+                    ),
+                    Container(
+                      height: 30,
+                      width: 30,
+                      decoration:
+                          BoxDecoration(shape: BoxShape.circle, color: value),
+                    )
+                  ],
+                );
+              },
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: hodColor.value),
+                ),
+                Text(
+                  "HOD",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: hodColor.value),
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: hodColor.value),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: viceColor.value),
+                ),
+                Text(
+                  "VICE PRINCIPAL",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: viceColor.value),
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: viceColor.value),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: princColor.value),
+                ),
+                Text(
+                  "PRINCIPAL",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: princColor.value),
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: princColor.value),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: asstColor.value),
+                ),
+                Text(
+                  "ASST MANAGER",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: asstColor.value),
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: asstColor.value),
+                )
+              ],
+            )
+          ],
+        )),
       ),
     );
   }

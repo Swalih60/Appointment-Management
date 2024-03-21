@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ams/models/model.dart';
+import 'package:ams/screens/student/progress_screen.dart';
 import 'package:flutter/material.dart';
 
 class RequestViceScreen extends StatelessWidget {
@@ -107,6 +108,18 @@ class RequestViceScreen extends StatelessWidget {
                           if (toValue != null && toValue > 3) {
                             fs.updateReq(docId, 'ViceApproval');
                           }
+
+                          viceColor.value = Colors.green;
+
+                          fs.addRemovesVice(
+                              subject: subject,
+                              to: to,
+                              from: from,
+                              body: body,
+                              id: docId,
+                              state: 'A');
+
+                          Navigator.of(context).pop();
 
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(

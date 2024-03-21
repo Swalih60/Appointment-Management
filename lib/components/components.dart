@@ -119,56 +119,6 @@ class textfield extends StatelessWidget {
 }
 
 // ignore: camel_case_types
-class row extends StatelessWidget {
-  final String text;
-  final double width;
-
-  const row({
-    Key? key,
-    required this.text,
-    required this.width,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const SizedBox(
-          width: 40,
-        ),
-        Container(
-          height: 30,
-          width: 30,
-          decoration:
-              const BoxDecoration(shape: BoxShape.circle, color: Colors.red),
-        ),
-        const SizedBox(
-          width: 80,
-        ),
-        Text(
-          text,
-          style: const TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 18, color: Colors.red),
-        ),
-        SizedBox(
-          width: width,
-        ),
-        Container(
-          height: 30,
-          width: 30,
-          decoration:
-              const BoxDecoration(shape: BoxShape.circle, color: Colors.red),
-          child: const Icon(
-            Icons.done,
-            color: Colors.white,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-// ignore: camel_case_types
 class listile extends StatelessWidget {
   final String title;
   final String subtitle;

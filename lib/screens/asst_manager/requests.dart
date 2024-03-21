@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ams/models/model.dart';
+import 'package:ams/screens/student/progress_screen.dart';
 import 'package:flutter/material.dart';
 
 class RequestAsstScreen extends StatelessWidget {
@@ -102,7 +103,25 @@ class RequestAsstScreen extends StatelessWidget {
                           backgroundColor:
                               const MaterialStatePropertyAll(Colors.green),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          fs.addRemovesAsst(
+                              subject: subject,
+                              to: to,
+                              from: from,
+                              body: body,
+                              id: docId,
+                              state: 'A');
+
+                          Navigator.of(context).pop();
+
+                          asstColor.value = Colors.green;
+
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text("Approved"),
+                            backgroundColor: Colors.green,
+                          ));
+                        },
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [

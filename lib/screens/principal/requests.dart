@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ams/models/model.dart';
+import 'package:ams/screens/student/progress_screen.dart';
 import 'package:flutter/material.dart';
 
 class RequestPrincipalScreen extends StatelessWidget {
@@ -107,6 +108,18 @@ class RequestPrincipalScreen extends StatelessWidget {
                           if (toValue != null && toValue > 4) {
                             fs.updateReq(docId, 'PrincipalApproval');
                           }
+
+                          princColor.value = Colors.green;
+
+                          fs.addRemovesPrinc(
+                              subject: subject,
+                              to: to,
+                              from: from,
+                              body: body,
+                              id: docId,
+                              state: 'A');
+
+                          Navigator.of(context).pop();
 
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(

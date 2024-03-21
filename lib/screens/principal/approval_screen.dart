@@ -5,13 +5,10 @@ import 'package:ams/screens/principal/requests.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class ApprovalPrincipalScreen extends StatelessWidget {
-  FireStoreServices fs = FireStoreServices();
+  ApprovalPrincipalScreen({Key? key}) : super(key: key);
 
-  ApprovalPrincipalScreen({
-    Key? key,
-  }) : super(key: key);
+  final FireStoreServices fs = FireStoreServices();
 
   @override
   Widget build(BuildContext context) {
@@ -42,42 +39,51 @@ class ApprovalPrincipalScreen extends StatelessWidget {
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              List requestList = snapshot.data!.docs;
+              return StreamBuilder<List<String>>(
+                stream: fs.getRemovesPrinc(),
+                builder: (context, removesSnapshot) {
+                  if (removesSnapshot.hasData) {
+                    List<DocumentSnapshot> requestList = snapshot.data!.docs
+                        .where((doc) => !removesSnapshot.data!.contains(doc.id))
+                        .toList();
+                    return ListView.builder(
+                      itemCount: requestList.length,
+                      itemBuilder: (context, index) {
+                        DocumentSnapshot document = requestList[index];
+                        String docID = document.id;
+                        Map<String, dynamic> data =
+                            document.data() as Map<String, dynamic>;
+                        String requestFrom = data['From'] ?? 'Unknown';
+                        String requestTo = data['To'] ?? 'Unknown';
+                        String requestSubject = data['Subject'] ?? 'Unknown';
+                        String requestBody = data['Body'] ?? 'Unknown';
+                        Timestamp requestTime = data['TimeStamp'] ?? 'Unknown';
+                        DateTime dateTime = requestTime.toDate();
 
-              return ListView.builder(
-                itemCount: requestList.length,
-                itemBuilder: (context, index) {
-                  DocumentSnapshot document = requestList[index];
-                  String docID = document.id;
-
-                  Map<String, dynamic> data =
-                      document.data() as Map<String, dynamic>;
-                  String requestFrom = data['From'] ?? 'Unknown';
-                  String requestTo = data['To'] ?? 'Unknown';
-                  String requestSubject = data['Subject'] ?? 'Unknown';
-                  String requestBody = data['Body'] ?? 'Unknown';
-                  // String hodApproval = data['HodApproval'] ?? 'Unknown';
-                  Timestamp requestTime = data['TimeStamp'] ?? 'Unknown';
-
-                  DateTime dateTime = requestTime.toDate();
-
-                  return listile(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RequestPrincipalScreen(
-                                    docId: docID,
-                                    from: requestFrom,
-                                    to: requestTo,
-                                    subject: requestSubject,
-                                    body: requestBody,
-                                  )));
-                    },
-                    title: requestFrom,
-                    trailing: dateTime,
-                    subtitle: requestSubject,
-                  );
+                        return listile(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RequestPrincipalScreen(
+                                  docId: docID,
+                                  from: requestFrom,
+                                  to: requestTo,
+                                  subject: requestSubject,
+                                  body: requestBody,
+                                ),
+                              ),
+                            );
+                          },
+                          title: requestFrom,
+                          trailing: dateTime,
+                          subtitle: requestSubject,
+                        );
+                      },
+                    );
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
                 },
               );
             } else {

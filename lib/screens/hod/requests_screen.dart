@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ams/models/model.dart';
+import 'package:ams/screens/student/progress_screen.dart';
 import 'package:flutter/material.dart';
 
 class RequestHodScreen extends StatelessWidget {
@@ -107,6 +108,17 @@ class RequestHodScreen extends StatelessWidget {
                           if (toValue != null && toValue > 2) {
                             fs.updateReq(docId, 'HodApproval');
                           }
+                          fs.addRemovesHod(
+                              subject: subject,
+                              to: to,
+                              from: from,
+                              body: body,
+                              id: docId,
+                              state: 'A');
+
+                          Navigator.of(context).pop();
+
+                          hodColor.value = Colors.green;
 
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(

@@ -252,7 +252,7 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                           content: Text("Sent Successfully"),
-                          backgroundColor: Colors.red,
+                          backgroundColor: Colors.green,
                         ));
                       }
                     },
