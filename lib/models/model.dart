@@ -39,14 +39,14 @@ class FireStoreServices {
   final CollectionReference removesFac =
       FirebaseFirestore.instance.collection("removesFac");
 
-  Future<void> addRemovesFac({
-    required String subject,
-    required String to,
-    required String from,
-    required String body,
-    required String id,
-    required String state,
-  }) {
+  Future<void> addRemovesFac(
+      {required String subject,
+      required String to,
+      required String from,
+      required String body,
+      required String id,
+      required String state,
+      required String comment}) {
     return removesFac.add({
       'id': id,
       'From': from,
@@ -54,6 +54,7 @@ class FireStoreServices {
       'Subject': subject,
       'Body': body,
       'state': state,
+      'comment': comment,
       'TimeStamp': Timestamp.now(),
     });
   }
@@ -75,6 +76,7 @@ class FireStoreServices {
     required String body,
     required String id,
     required String state,
+    required String comment,
   }) {
     return removesHod.add({
       'id': id,
@@ -83,6 +85,7 @@ class FireStoreServices {
       'Subject': subject,
       'Body': body,
       'state': state,
+      'comment': comment,
       'TimeStamp': Timestamp.now(),
     });
   }
@@ -104,6 +107,7 @@ class FireStoreServices {
     required String body,
     required String id,
     required String state,
+    required String comment,
   }) {
     return removesVice.add({
       'id': id,
@@ -112,6 +116,7 @@ class FireStoreServices {
       'Subject': subject,
       'Body': body,
       'state': state,
+      'comment': comment,
       'TimeStamp': Timestamp.now(),
     });
   }
@@ -133,6 +138,7 @@ class FireStoreServices {
     required String body,
     required String id,
     required String state,
+    required String comment,
   }) {
     return removesPrinc.add({
       'id': id,
@@ -141,6 +147,7 @@ class FireStoreServices {
       'Subject': subject,
       'Body': body,
       'state': state,
+      'comment': comment,
       'TimeStamp': Timestamp.now(),
     });
   }
@@ -162,6 +169,7 @@ class FireStoreServices {
     required String body,
     required String id,
     required String state,
+    required String comment,
   }) {
     return removesAsst.add({
       'id': id,
@@ -170,6 +178,7 @@ class FireStoreServices {
       'Subject': subject,
       'Body': body,
       'state': state,
+      'comment': comment,
       'TimeStamp': Timestamp.now(),
     });
   }

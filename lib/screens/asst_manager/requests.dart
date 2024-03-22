@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
 import 'package:ams/screens/student/progress_screen.dart';
 import 'package:flutter/material.dart';
 
 class RequestAsstScreen extends StatelessWidget {
+  final TextEditingController text1 = TextEditingController();
   final FireStoreServices fs = FireStoreServices();
   final String from;
   final String to;
@@ -104,23 +106,48 @@ class RequestAsstScreen extends StatelessWidget {
                               const MaterialStatePropertyAll(Colors.green),
                         ),
                         onPressed: () {
-                          fs.addRemovesAsst(
-                              subject: subject,
-                              to: to,
-                              from: from,
-                              body: body,
-                              id: docId,
-                              state: 'A');
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text("Any comments?"),
+                                content: textfield(
+                                    text: 'Write comment here',
+                                    controller: text1),
+                                actions: [
+                                  IconButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      icon: const Icon(Icons.close)),
+                                  IconButton(
+                                      onPressed: () {
+                                        fs.addRemovesAsst(
+                                          subject: subject,
+                                          to: to,
+                                          from: from,
+                                          body: body,
+                                          id: docId,
+                                          state: 'A',
+                                          comment: text1.text,
+                                        );
 
-                          Navigator.of(context).pop();
+                                        asstColor.value = Colors.green;
 
-                          asstColor.value = Colors.green;
+                                        Navigator.of(context).pop();
+                                        Navigator.of(context).pop();
 
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text("Approved"),
-                            backgroundColor: Colors.green,
-                          ));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                          content: Text("Approved"),
+                                          backgroundColor: Colors.green,
+                                        ));
+                                      },
+                                      icon: const Icon(Icons.done)),
+                                ],
+                              );
+                            },
+                          );
                         },
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,
@@ -154,7 +181,28 @@ class RequestAsstScreen extends StatelessWidget {
                         backgroundColor:
                             const MaterialStatePropertyAll(Colors.red),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        fs.addRemovesAsst(
+                          subject: subject,
+                          to: to,
+                          from: from,
+                          body: body,
+                          id: docId,
+                          state: 'R',
+                          comment: text1.text,
+                        );
+
+                        asstColor.value = Colors.red;
+
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Rejected"),
+                          backgroundColor: Colors.red,
+                        ));
+                      },
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

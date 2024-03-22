@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
 import 'package:ams/screens/student/progress_screen.dart';
 import 'package:flutter/material.dart';
 
 class RequestViceScreen extends StatelessWidget {
+  final TextEditingController text1 = TextEditingController();
   final FireStoreServices fs = FireStoreServices();
   final String from;
   final String to;
@@ -104,28 +106,51 @@ class RequestViceScreen extends StatelessWidget {
                               const MaterialStatePropertyAll(Colors.green),
                         ),
                         onPressed: () {
-                          int? toValue = int.tryParse(to);
-                          if (toValue != null && toValue > 3) {
-                            fs.updateReq(docId, 'ViceApproval');
-                          }
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text("Any comments?"),
+                                content: textfield(
+                                    text: 'Write comment here',
+                                    controller: text1),
+                                actions: [
+                                  IconButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      icon: const Icon(Icons.close)),
+                                  IconButton(
+                                      onPressed: () {
+                                        int? toValue = int.tryParse(to);
+                                        if (toValue != null && toValue > 3) {
+                                          fs.updateReq(docId, 'ViceApproval');
+                                        }
 
-                          viceColor.value = Colors.green;
+                                        viceColor.value = Colors.green;
 
-                          fs.addRemovesVice(
-                              subject: subject,
-                              to: to,
-                              from: from,
-                              body: body,
-                              id: docId,
-                              state: 'A');
-
-                          Navigator.of(context).pop();
-
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text("Approved"),
-                            backgroundColor: Colors.green,
-                          ));
+                                        fs.addRemovesVice(
+                                          subject: subject,
+                                          to: to,
+                                          from: from,
+                                          body: body,
+                                          id: docId,
+                                          state: 'A',
+                                          comment: text1.text,
+                                        );
+                                        Navigator.of(context).pop();
+                                        Navigator.of(context).pop();
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                          content: Text("Approved"),
+                                          backgroundColor: Colors.green,
+                                        ));
+                                      },
+                                      icon: const Icon(Icons.close))
+                                ],
+                              );
+                            },
+                          );
                         },
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,
@@ -160,6 +185,19 @@ class RequestViceScreen extends StatelessWidget {
                             const MaterialStatePropertyAll(Colors.red),
                       ),
                       onPressed: () {
+                        viceColor.value = Colors.red;
+
+                        fs.addRemovesVice(
+                          subject: subject,
+                          to: to,
+                          from: from,
+                          body: body,
+                          id: docId,
+                          state: 'R',
+                          comment: text1.text,
+                        );
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                           content: Text("Rejected"),
