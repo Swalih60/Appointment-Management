@@ -106,66 +106,40 @@ class RequestFacScreen extends StatelessWidget {
                               const MaterialStatePropertyAll(Colors.green),
                         ),
                         onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text("Any Comments?"),
-                                content: textfield(
-                                    text: 'Write comment here',
-                                    controller: text1),
-                                actions: [
-                                  IconButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      icon: const Icon(Icons.close)),
-                                  IconButton(
-                                      onPressed: () {
-                                        int? toValue = int.tryParse(to);
-                                        if (toValue != null && toValue > 1) {
-                                          fs.updateReq(
-                                              docId, 'FacultyApproval');
-                                        } else {
-                                          fs.addApprove(
-                                            subject: subject,
-                                            to: to,
-                                            body: body,
-                                            id: docId,
-                                            comment: text1.text,
-                                            by: 'Fac',
-                                          );
+                          int? toValue = int.tryParse(to);
+                          if (toValue != null && toValue > 1) {
+                            fs.updateReq(docId, 'FacultyApproval');
+                          } else {
+                            fs.addApprove(
+                              subject: subject,
+                              to: to,
+                              body: body,
+                              id: docId,
+                            );
 
-                                          Navigator.of(context).pop();
-                                          Navigator.of(context).pop();
+                            Navigator.of(context).pop();
 
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(const SnackBar(
-                                            content: Text("Approved"),
-                                            backgroundColor: Colors.green,
-                                          ));
-                                        }
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text("Approved"),
+                              backgroundColor: Colors.green,
+                            ));
+                          }
 
-                                        fs.addRemovesFac(
-                                          id: docId,
-                                        );
-
-                                        facColor.value = Colors.green;
-
-                                        Navigator.of(context).pop();
-                                        Navigator.of(context).pop();
-
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                          content: Text("Approved"),
-                                          backgroundColor: Colors.green,
-                                        ));
-                                      },
-                                      icon: const Icon(Icons.done))
-                                ],
-                              );
-                            },
+                          fs.addRemovesFac(
+                            id: docId,
                           );
+
+                          facColor.value = Colors.green;
+
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text("Approved"),
+                            backgroundColor: Colors.green,
+                          ));
                         },
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,

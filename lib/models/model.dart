@@ -132,16 +132,12 @@ class FireStoreServices {
     required String to,
     required String body,
     required String id,
-    required String comment,
-    required String by,
   }) {
     return approves.add({
       'id': id,
-      'comment': comment,
       'To': to,
       'Subject': subject,
       'Body': body,
-      'by': by,
     });
   }
 

@@ -106,49 +106,25 @@ class RequestAsstScreen extends StatelessWidget {
                               const MaterialStatePropertyAll(Colors.green),
                         ),
                         onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text("Any comments?"),
-                                content: textfield(
-                                    text: 'Write comment here',
-                                    controller: text1),
-                                actions: [
-                                  IconButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      icon: const Icon(Icons.close)),
-                                  IconButton(
-                                      onPressed: () {
-                                        fs.addApprove(
-                                            subject: subject,
-                                            to: to,
-                                            body: body,
-                                            id: docId,
-                                            comment: text1.text,
-                                            by: 'Asst');
-                                        fs.addRemovesAsst(
-                                          id: docId,
-                                        );
-
-                                        asstColor.value = Colors.green;
-
-                                        Navigator.of(context).pop();
-                                        Navigator.of(context).pop();
-
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                          content: Text("Approved"),
-                                          backgroundColor: Colors.green,
-                                        ));
-                                      },
-                                      icon: const Icon(Icons.done)),
-                                ],
-                              );
-                            },
+                          fs.addApprove(
+                            subject: subject,
+                            to: to,
+                            body: body,
+                            id: docId,
                           );
+                          fs.addRemovesAsst(
+                            id: docId,
+                          );
+
+                          asstColor.value = Colors.green;
+
+                          Navigator.of(context).pop();
+
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text("Approved"),
+                            backgroundColor: Colors.green,
+                          ));
                         },
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,
