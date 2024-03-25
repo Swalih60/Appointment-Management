@@ -48,7 +48,7 @@ class RequestViceScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 16, top: 20),
+                padding: const EdgeInsets.only(left: 16, top: 50),
                 child: Text(
                   'From: $from',
                   style: const TextStyle(
@@ -125,18 +125,20 @@ class RequestViceScreen extends StatelessWidget {
                                         int? toValue = int.tryParse(to);
                                         if (toValue != null && toValue > 3) {
                                           fs.updateReq(docId, 'ViceApproval');
+                                        } else {
+                                          fs.addApprove(
+                                              subject: subject,
+                                              to: to,
+                                              body: body,
+                                              id: docId,
+                                              comment: text1.text,
+                                              by: 'Vice');
                                         }
 
                                         viceColor.value = Colors.green;
 
                                         fs.addRemovesVice(
-                                          subject: subject,
-                                          to: to,
-                                          from: from,
-                                          body: body,
                                           id: docId,
-                                          state: 'A',
-                                          comment: text1.text,
                                         );
                                         Navigator.of(context).pop();
                                         Navigator.of(context).pop();
@@ -146,7 +148,7 @@ class RequestViceScreen extends StatelessWidget {
                                           backgroundColor: Colors.green,
                                         ));
                                       },
-                                      icon: const Icon(Icons.close))
+                                      icon: const Icon(Icons.done))
                                 ],
                               );
                             },
@@ -186,15 +188,16 @@ class RequestViceScreen extends StatelessWidget {
                       ),
                       onPressed: () {
                         viceColor.value = Colors.red;
+                        fs.addRejects(
+                            subject: subject,
+                            to: to,
+                            body: body,
+                            id: docId,
+                            comment: text1.text,
+                            by: 'Vice');
 
                         fs.addRemovesVice(
-                          subject: subject,
-                          to: to,
-                          from: from,
-                          body: body,
                           id: docId,
-                          state: 'R',
-                          comment: text1.text,
                         );
                         Navigator.of(context).pop();
                         Navigator.of(context).pop();

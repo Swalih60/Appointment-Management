@@ -1,4 +1,5 @@
 import 'package:ams/components/components.dart';
+import 'package:ams/screens/student/status_screen.dart';
 import 'package:flutter/material.dart';
 
 class StudenScreen extends StatelessWidget {
@@ -133,9 +134,11 @@ class StudenScreen extends StatelessWidget {
                 ),
                 button(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/progress');
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => StatusScreen(),
+                      ));
                     },
-                    child: 'PROGRESS TRACKER'),
+                    child: 'Status'),
                 const SizedBox(
                   height: 80,
                 )

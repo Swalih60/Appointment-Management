@@ -39,23 +39,9 @@ class FireStoreServices {
   final CollectionReference removesFac =
       FirebaseFirestore.instance.collection("removesFac");
 
-  Future<void> addRemovesFac(
-      {required String subject,
-      required String to,
-      required String from,
-      required String body,
-      required String id,
-      required String state,
-      required String comment}) {
+  Future<void> addRemovesFac({required String id}) {
     return removesFac.add({
       'id': id,
-      'From': from,
-      'To': to,
-      'Subject': subject,
-      'Body': body,
-      'state': state,
-      'comment': comment,
-      'TimeStamp': Timestamp.now(),
     });
   }
 
@@ -70,23 +56,10 @@ class FireStoreServices {
       FirebaseFirestore.instance.collection("removesHod");
 
   Future<void> addRemovesHod({
-    required String subject,
-    required String to,
-    required String from,
-    required String body,
     required String id,
-    required String state,
-    required String comment,
   }) {
     return removesHod.add({
       'id': id,
-      'From': from,
-      'To': to,
-      'Subject': subject,
-      'Body': body,
-      'state': state,
-      'comment': comment,
-      'TimeStamp': Timestamp.now(),
     });
   }
 
@@ -101,23 +74,10 @@ class FireStoreServices {
       FirebaseFirestore.instance.collection("removesVice");
 
   Future<void> addRemovesVice({
-    required String subject,
-    required String to,
-    required String from,
-    required String body,
     required String id,
-    required String state,
-    required String comment,
   }) {
     return removesVice.add({
       'id': id,
-      'From': from,
-      'To': to,
-      'Subject': subject,
-      'Body': body,
-      'state': state,
-      'comment': comment,
-      'TimeStamp': Timestamp.now(),
     });
   }
 
@@ -132,23 +92,10 @@ class FireStoreServices {
       FirebaseFirestore.instance.collection("removesPrinc");
 
   Future<void> addRemovesPrinc({
-    required String subject,
-    required String to,
-    required String from,
-    required String body,
     required String id,
-    required String state,
-    required String comment,
   }) {
     return removesPrinc.add({
       'id': id,
-      'From': from,
-      'To': to,
-      'Subject': subject,
-      'Body': body,
-      'state': state,
-      'comment': comment,
-      'TimeStamp': Timestamp.now(),
     });
   }
 
@@ -163,23 +110,10 @@ class FireStoreServices {
       FirebaseFirestore.instance.collection("removesAsst");
 
   Future<void> addRemovesAsst({
-    required String subject,
-    required String to,
-    required String from,
-    required String body,
     required String id,
-    required String state,
-    required String comment,
   }) {
     return removesAsst.add({
       'id': id,
-      'From': from,
-      'To': to,
-      'Subject': subject,
-      'Body': body,
-      'state': state,
-      'comment': comment,
-      'TimeStamp': Timestamp.now(),
     });
   }
 
@@ -188,5 +122,57 @@ class FireStoreServices {
     return requestStream.map((snapshot) {
       return snapshot.docs.map((doc) => doc['id'] as String).toList();
     });
+  }
+
+  final CollectionReference approves =
+      FirebaseFirestore.instance.collection("approves");
+
+  Future<void> addApprove({
+    required String subject,
+    required String to,
+    required String body,
+    required String id,
+    required String comment,
+    required String by,
+  }) {
+    return approves.add({
+      'id': id,
+      'comment': comment,
+      'To': to,
+      'Subject': subject,
+      'Body': body,
+      'by': by,
+    });
+  }
+
+  Stream<QuerySnapshot> getApproves() {
+    final approveStream = approves.snapshots();
+    return approveStream;
+  }
+
+  final CollectionReference rejects =
+      FirebaseFirestore.instance.collection("rejects");
+
+  Future<void> addRejects({
+    required String subject,
+    required String to,
+    required String body,
+    required String id,
+    required String comment,
+    required String by,
+  }) {
+    return rejects.add({
+      'id': id,
+      'comment': comment,
+      'To': to,
+      'Subject': subject,
+      'Body': body,
+      'by': by,
+    });
+  }
+
+  Stream<QuerySnapshot> getRejects() {
+    final rejectsStream = rejects.snapshots();
+    return rejectsStream;
   }
 }

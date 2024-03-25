@@ -48,7 +48,7 @@ class RequestPrincipalScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 16, top: 20),
+                padding: const EdgeInsets.only(left: 16, top: 50),
                 child: Text(
                   'From: $from',
                   style: const TextStyle(
@@ -126,6 +126,14 @@ class RequestPrincipalScreen extends StatelessWidget {
                                         if (toValue != null && toValue > 4) {
                                           fs.updateReq(
                                               docId, 'PrincipalApproval');
+                                        } else {
+                                          fs.addApprove(
+                                              subject: subject,
+                                              to: to,
+                                              body: body,
+                                              id: docId,
+                                              comment: text1.text,
+                                              by: 'Princ');
                                         }
 
                                         princColor.value = Colors.green;
@@ -133,13 +141,7 @@ class RequestPrincipalScreen extends StatelessWidget {
                                         Navigator.of(context).pop();
 
                                         fs.addRemovesPrinc(
-                                          subject: subject,
-                                          to: to,
-                                          from: from,
-                                          body: body,
                                           id: docId,
-                                          state: 'A',
-                                          comment: text1.text,
                                         );
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(const SnackBar(
@@ -186,14 +188,15 @@ class RequestPrincipalScreen extends StatelessWidget {
                             const MaterialStatePropertyAll(Colors.red),
                       ),
                       onPressed: () {
+                        fs.addRejects(
+                            subject: subject,
+                            to: to,
+                            body: body,
+                            id: docId,
+                            comment: text1.text,
+                            by: 'Princ');
                         fs.addRemovesPrinc(
-                          subject: subject,
-                          to: to,
-                          from: from,
-                          body: body,
                           id: docId,
-                          state: 'R',
-                          comment: text1.text,
                         );
                         princColor.value = Colors.red;
                         Navigator.of(context).pop();
