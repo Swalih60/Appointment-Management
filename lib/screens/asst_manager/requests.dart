@@ -181,7 +181,7 @@ class RequestAsstScreen extends StatelessWidget {
                                           body: body,
                                           id: docId,
                                           comment: text1.text,
-                                          by: 'Asst');
+                                          by: 'Asst Manager');
                                       fs.addRemovesAsst(
                                         id: docId,
                                       );

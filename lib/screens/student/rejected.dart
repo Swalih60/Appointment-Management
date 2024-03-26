@@ -39,6 +39,7 @@ class RejectedScreen extends StatelessWidget {
                         String requestSubject = data['Subject'] ?? 'Unknown';
                         String requestBody = data['Body'] ?? 'Unknown';
                         String comment = data['comment'] ?? 'Unknown';
+                        String by = data['by'] ?? 'Unknown';
 
                         if (requestTo == '1') {
                           requestTo = 'Faculty';
@@ -71,7 +72,7 @@ class RejectedScreen extends StatelessWidget {
                                 ));
                               },
                               title: Text(
-                                requestTo,
+                                by,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18.0,

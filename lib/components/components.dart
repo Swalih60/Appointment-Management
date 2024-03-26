@@ -166,3 +166,69 @@ class listile extends StatelessWidget {
     );
   }
 }
+
+class LoginTextfield extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final bool obsecureText;
+
+  const LoginTextfield(
+      {super.key,
+      required this.controller,
+      required this.hintText,
+      required this.obsecureText});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25),
+      child: TextField(
+        controller: controller,
+        obscureText: obsecureText,
+        decoration: InputDecoration(
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+            ),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.shade400)),
+            fillColor: Colors.grey.shade200,
+            filled: true,
+            hintText: hintText,
+            hintStyle: TextStyle(
+              color: Colors.grey[500],
+            )),
+      ),
+    );
+  }
+}
+
+// ignore: camel_case_types
+class button2 extends StatelessWidget {
+  final Function()? onTap;
+  const button2({super.key, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(25),
+        margin: const EdgeInsets.symmetric(horizontal: 80),
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: const Center(
+          child: Text(
+            "Sign In",
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

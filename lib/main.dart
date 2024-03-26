@@ -1,6 +1,7 @@
 import 'package:ams/firebase_options.dart';
 import 'package:ams/screens/asst_manager/approval_screen.dart';
 import 'package:ams/screens/asst_manager/asst_screen.dart';
+import 'package:ams/screens/auth_screen.dart';
 import 'package:ams/screens/faculty/approval_screen.dart';
 import 'package:ams/screens/faculty/faculty_screen.dart';
 import 'package:ams/screens/hod/approval_screen.dart';
@@ -16,8 +17,6 @@ import 'package:ams/screens/vicePrincipal/vice_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'screens/home_screen.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -31,7 +30,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
+      home: const AuthScreen(),
       routes: {
         '/asst': (context) => const AsstScreen(),
         '/principal': (context) => const PrincipalScreen(),
@@ -40,7 +39,7 @@ class MainApp extends StatelessWidget {
         '/student': (context) => const StudenScreen(),
         '/proposal': (context) => const ProposalScreen(),
         '/digital': (context) => const DigitalLetterScreen(),
-        '/progress': (context) => ProgressScreen(),
+        '/progress': (context) => const ProgressScreen(),
         '/hod': (context) => const HodScreen(),
         '/approval_faculty': (context) => ApprovalFacultyScreen(),
         '/approval_hod': (context) => ApprovalHodScreen(),

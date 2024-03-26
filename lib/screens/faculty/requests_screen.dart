@@ -133,7 +133,6 @@ class RequestFacScreen extends StatelessWidget {
                           facColor.value = Colors.green;
 
                           Navigator.of(context).pop();
-                          Navigator.of(context).pop();
 
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(
@@ -196,7 +195,7 @@ class RequestFacScreen extends StatelessWidget {
                                           body: body,
                                           id: docId,
                                           comment: text1.text,
-                                          by: 'Fac');
+                                          by: 'Faculty');
                                       fs.addRemovesFac(
                                         id: docId,
                                       );

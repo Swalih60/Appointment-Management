@@ -3,6 +3,8 @@ import 'package:ams/models/model.dart';
 import 'package:ams/screens/student/progress_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../components/components.dart';
+
 class RequestViceScreen extends StatelessWidget {
   final TextEditingController text1 = TextEditingController();
   final FireStoreServices fs = FireStoreServices();
@@ -163,25 +165,47 @@ class RequestViceScreen extends StatelessWidget {
                             const MaterialStatePropertyAll(Colors.red),
                       ),
                       onPressed: () {
-                        viceColor.value = Colors.red;
-                        fs.addRejects(
-                            subject: subject,
-                            to: to,
-                            body: body,
-                            id: docId,
-                            comment: text1.text,
-                            by: 'Vice');
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text("Any comments?"),
+                              content: textfield(
+                                  text: 'Write comment here',
+                                  controller: text1),
+                              actions: [
+                                IconButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    icon: const Icon(Icons.close)),
+                                IconButton(
+                                    onPressed: () {
+                                      viceColor.value = Colors.red;
+                                      fs.addRejects(
+                                          subject: subject,
+                                          to: to,
+                                          body: body,
+                                          id: docId,
+                                          comment: text1.text,
+                                          by: 'Vice Principal');
 
-                        fs.addRemovesVice(
-                          id: docId,
+                                      fs.addRemovesVice(
+                                        id: docId,
+                                      );
+                                      Navigator.of(context).pop();
+                                      Navigator.of(context).pop();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                        content: Text("Rejected"),
+                                        backgroundColor: Colors.red,
+                                      ));
+                                    },
+                                    icon: const Icon(Icons.done)),
+                              ],
+                            );
+                          },
                         );
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pop();
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text("Rejected"),
-                          backgroundColor: Colors.red,
-                        ));
                       },
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
