@@ -36,6 +36,18 @@ class FireStoreServices {
   //   return requestStream;
   // }
 
+  final CollectionReference users =
+      FirebaseFirestore.instance.collection("Users");
+
+  Future<void> addUser(
+      {required String uid, required String role, required String userName}) {
+    return users.add({
+      'uid': uid,
+      'role': role,
+      'userName': userName,
+    });
+  }
+
   final CollectionReference removesFac =
       FirebaseFirestore.instance.collection("removesFac");
 

@@ -16,7 +16,7 @@ class button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 200,
+      width: 180,
       height: 50,
       child: ElevatedButton(
           onPressed: onPressed,
@@ -205,7 +205,12 @@ class LoginTextfield extends StatelessWidget {
 // ignore: camel_case_types
 class button2 extends StatelessWidget {
   final Function()? onTap;
-  const button2({super.key, required this.onTap});
+  final String text;
+  const button2({
+    Key? key,
+    this.onTap,
+    required this.text,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -218,10 +223,10 @@ class button2 extends StatelessWidget {
           color: Colors.black,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: const Center(
+        child: Center(
           child: Text(
-            "Sign In",
-            style: TextStyle(
+            text,
+            style: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 16,

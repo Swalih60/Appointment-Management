@@ -1,5 +1,7 @@
 import 'package:ams/components/components.dart';
+import 'package:ams/screens/student/schedule_screen.dart';
 import 'package:ams/screens/student/status_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class StudenScreen extends StatelessWidget {
@@ -72,8 +74,7 @@ class StudenScreen extends StatelessWidget {
                       leading: const Icon(Icons.logout),
                       title: const Text("Sign Out"),
                       onTap: () {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
+                        FirebaseAuth.instance.signOut();
                       },
                     ),
                   )
@@ -124,18 +125,33 @@ class StudenScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                button(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/proposal');
-                    },
-                    child: 'NEW PROPOSAL'),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    button(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/proposal');
+                        },
+                        child: 'NEW PROPOSAL'),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    button(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const ScheduleScreen(),
+                          ));
+                        },
+                        child: 'Schedule'),
+                  ],
+                ),
                 const SizedBox(
                   height: 20,
                 ),
                 button(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => StatusScreen(),
+                        builder: (context) => const StatusScreen(),
                       ));
                     },
                     child: 'Status'),

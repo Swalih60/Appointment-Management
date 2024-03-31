@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/components.dart';
@@ -72,8 +73,7 @@ class HodScreen extends StatelessWidget {
                       leading: const Icon(Icons.logout),
                       title: const Text("Sign Out"),
                       onTap: () {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
+                        FirebaseAuth.instance.signOut();
                       },
                     ),
                   )

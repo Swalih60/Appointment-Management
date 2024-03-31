@@ -30,7 +30,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const AuthScreen(),
+      home: AuthScreen(),
       routes: {
         '/asst': (context) => const AsstScreen(),
         '/principal': (context) => const PrincipalScreen(),
