@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 class RequestAsstScreen extends StatelessWidget {
   final TextEditingController text1 = TextEditingController();
   final FireStoreServices fs = FireStoreServices();
+  final String uid;
   final String from;
   final String to;
   final String subject;
@@ -15,6 +16,7 @@ class RequestAsstScreen extends StatelessWidget {
 
   RequestAsstScreen(
       {super.key,
+      required this.uid,
       required this.from,
       required this.to,
       required this.subject,
@@ -107,6 +109,7 @@ class RequestAsstScreen extends StatelessWidget {
                         ),
                         onPressed: () {
                           fs.addApprove(
+                            uid: uid,
                             subject: subject,
                             to: to,
                             body: body,

@@ -1,5 +1,6 @@
 import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class DigitalLetterScreen extends StatefulWidget {
@@ -21,11 +22,12 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
   final TextEditingController body = TextEditingController();
 
   String selectedItem = 'S1';
-  String selectedItem1 = 'MECH';
+  String selectedItem1 = 'CSE';
   String selectedItem2 = '1';
 
   @override
   Widget build(BuildContext context) {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -242,6 +244,7 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
                         ));
                       } else {
                         fs.addReq(
+                            uid: uid,
                             branch: selectedItem1,
                             sem: selectedItem,
                             from: from.text,

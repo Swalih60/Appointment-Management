@@ -54,6 +54,7 @@ class ApprovalViceScreen extends StatelessWidget {
                         String docID = document.id;
                         Map<String, dynamic> data =
                             document.data() as Map<String, dynamic>;
+                        String uid = data['uid'] ?? 'Unknown';
                         String requestFrom = data['From'] ?? 'Unknown';
                         String requestTo = data['To'] ?? 'Unknown';
                         String requestSubject = data['Subject'] ?? 'Unknown';
@@ -79,6 +80,7 @@ class ApprovalViceScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => RequestViceScreen(
+                                  uid: uid,
                                   docId: docID,
                                   from: requestFrom,
                                   to: requestTo,

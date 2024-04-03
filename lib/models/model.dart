@@ -5,13 +5,15 @@ class FireStoreServices {
       FirebaseFirestore.instance.collection("requests");
 
   Future<void> addReq(
-      {required String subject,
+      {required String uid,
+      required String subject,
       required String to,
       required String branch,
       required String sem,
       required String from,
       required String body}) {
     return requests.add({
+      'uid': uid,
       'Branch': branch,
       'Sem': sem,
       'From': from,
@@ -40,10 +42,16 @@ class FireStoreServices {
       FirebaseFirestore.instance.collection("Users");
 
   Future<void> addUser(
-      {required String uid, required String role, required String userName}) {
+      {required String uid,
+      required String userName,
+      // required String role,
+      required String branch,
+      required String sem}) {
     return users.add({
+      'sem': sem,
+      'branch': branch,
+      // 'role': role,
       'uid': uid,
-      'role': role,
       'userName': userName,
     });
   }
@@ -140,12 +148,14 @@ class FireStoreServices {
       FirebaseFirestore.instance.collection("approves");
 
   Future<void> addApprove({
+    required String uid,
     required String subject,
     required String to,
     required String body,
     required String id,
   }) {
     return approves.add({
+      'uid': uid,
       'id': id,
       'To': to,
       'Subject': subject,
@@ -153,8 +163,8 @@ class FireStoreServices {
     });
   }
 
-  Stream<QuerySnapshot> getApproves() {
-    final approveStream = approves.snapshots();
+  Stream<QuerySnapshot> getApproves(String uid) {
+    final approveStream = approves.where('uid', isEqualTo: uid).snapshots();
     return approveStream;
   }
 
@@ -179,8 +189,8 @@ class FireStoreServices {
     });
   }
 
-  Stream<QuerySnapshot> getRejects() {
-    final rejectsStream = rejects.snapshots();
+  Stream<QuerySnapshot> getRejects(String uid) {
+    final rejectsStream = rejects.where('uid', isEqualTo: uid).snapshots();
     return rejectsStream;
   }
 }

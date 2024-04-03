@@ -1,7 +1,7 @@
+import 'package:ams/auth/login_or_registerscreen.dart';
 import 'package:ams/screens/asst_manager/asst_screen.dart';
 import 'package:ams/screens/faculty/faculty_screen.dart';
 import 'package:ams/screens/hod/hod_screen.dart';
-import 'package:ams/screens/login_or_registerscreen.dart';
 import 'package:ams/screens/principal/principal_screen.dart';
 import 'package:ams/screens/student/student_screen.dart';
 import 'package:ams/screens/vicePrincipal/vice_screen.dart';
@@ -30,7 +30,7 @@ class AuthScreen extends StatelessWidget {
             } else if (uid == '4rSESY1K7kcFiYY5ctElTqbWGCI3') {
               return const HodScreen();
             } else {
-              return const StudenScreen();
+              return StudenScreen();
             }
           } else {
             return const LoginOrRegisterScreen();

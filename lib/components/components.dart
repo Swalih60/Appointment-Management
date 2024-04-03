@@ -171,18 +171,21 @@ class LoginTextfield extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final bool obsecureText;
+  final String? Function(String?)? validator;
 
   const LoginTextfield(
       {super.key,
       required this.controller,
       required this.hintText,
+      this.validator,
       required this.obsecureText});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
-      child: TextField(
+      child: TextFormField(
+        validator: validator,
         controller: controller,
         obscureText: obsecureText,
         decoration: InputDecoration(

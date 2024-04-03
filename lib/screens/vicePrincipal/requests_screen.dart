@@ -8,6 +8,7 @@ import '../../components/components.dart';
 class RequestViceScreen extends StatelessWidget {
   final TextEditingController text1 = TextEditingController();
   final FireStoreServices fs = FireStoreServices();
+  final String uid;
   final String from;
   final String to;
   final String subject;
@@ -16,6 +17,7 @@ class RequestViceScreen extends StatelessWidget {
 
   RequestViceScreen(
       {super.key,
+      required this.uid,
       required this.from,
       required this.to,
       required this.subject,
@@ -112,6 +114,7 @@ class RequestViceScreen extends StatelessWidget {
                             fs.updateReq(docId, 'ViceApproval');
                           } else {
                             fs.addApprove(
+                              uid: uid,
                               subject: subject,
                               to: to,
                               body: body,

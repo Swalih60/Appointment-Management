@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 class RequestHodScreen extends StatelessWidget {
   final TextEditingController text1 = TextEditingController();
   final FireStoreServices fs = FireStoreServices();
+  final String uid;
   final String from;
   final String to;
   final String subject;
@@ -15,6 +16,7 @@ class RequestHodScreen extends StatelessWidget {
 
   RequestHodScreen(
       {super.key,
+      required this.uid,
       required this.from,
       required this.to,
       required this.subject,
@@ -111,6 +113,7 @@ class RequestHodScreen extends StatelessWidget {
                             fs.updateReq(docId, 'HodApproval');
                           } else {
                             fs.addApprove(
+                              uid: uid,
                               subject: subject,
                               to: to,
                               body: body,

@@ -18,7 +18,11 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   FireStoreServices fs = FireStoreServices();
-  String currentRole = 'Student';
+
+  String selectedItem = 'S1';
+  String selectedItem1 = 'CSE';
+
+  // String currentRole = 'Student';
 
   final userNameController = TextEditingController();
 
@@ -46,18 +50,102 @@ class _RegisterScreenState extends State<RegisterScreen> {
               const SizedBox(
                 height: 25,
               ),
-              DropdownButton(
-                value: currentRole,
-                items: const [
-                  DropdownMenuItem(value: 'Student', child: Text('Student')),
-                  DropdownMenuItem(value: 'Faculty', child: Text('Faculty')),
-                  DropdownMenuItem(value: 'Hod', child: Text('Hod')),
+              // DropdownButton(
+              //   value: currentRole,
+              //   items: const [
+              //     DropdownMenuItem(value: 'Student', child: Text('Student')),
+              //     DropdownMenuItem(value: 'Faculty', child: Text('Faculty')),
+              //   ],
+              //   onChanged: (value) {
+              //     setState(() {
+              //       currentRole = value!;
+              //     });
+              //   },
+              // ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  DropdownButton<String>(
+                    icon: const Icon(Icons.arrow_drop_down),
+                    value: selectedItem1,
+                    items: const [
+                      DropdownMenuItem<String>(
+                        value: 'CSE',
+                        child: Text("CSE"),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'EC',
+                        child: Text("EC"),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'CIVIL',
+                        child: Text("CIVIL"),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'MECH',
+                        child: Text("MECH"),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'EEE',
+                        child: Text("EEE"),
+                      ),
+                    ],
+                    onChanged: (newValue) {
+                      setState(() {
+                        selectedItem1 = newValue!;
+                      });
+                    },
+                  ),
+                  const SizedBox(
+                    width: 30,
+                  ),
+                  DropdownButton<String>(
+                    icon: const Icon(Icons.arrow_drop_down),
+                    value: selectedItem,
+                    items: const [
+                      DropdownMenuItem<String>(
+                        value: 'S1',
+                        child: Text("S1"),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'S2',
+                        child: Text("S2"),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'S3',
+                        child: Text("S3"),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'S4',
+                        child: Text("S4"),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'S5',
+                        child: Text("S5"),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'S6',
+                        child: Text("S6"),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'S7',
+                        child: Text("S7"),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'S8',
+                        child: Text("S8"),
+                      ),
+                    ],
+                    onChanged: (newValue) {
+                      setState(() {
+                        selectedItem = newValue!;
+                      });
+                    },
+                  ),
                 ],
-                onChanged: (value) {
-                  setState(() {
-                    currentRole = value!;
-                  });
-                },
               ),
               const SizedBox(
                 height: 10,
@@ -104,9 +192,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         password: passwordController.text,
                       );
                       final uid = FirebaseAuth.instance.currentUser?.uid;
+
                       fs.addUser(
+                          branch: selectedItem1,
+                          sem: selectedItem,
                           uid: uid.toString(),
-                          role: currentRole,
+                          // role: currentRole,
                           userName: userNameController.text);
 
                       // ignore: use_build_context_synchronously
@@ -130,7 +221,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 text: 'Register',
               ),
               const SizedBox(
-                height: 50,
+                height: 30,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

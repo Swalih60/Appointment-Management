@@ -1,14 +1,18 @@
 import 'package:ams/components/components.dart';
+import 'package:ams/models/model.dart';
+import 'package:ams/screens/student/digital_screen.dart';
 import 'package:ams/screens/student/schedule_screen.dart';
 import 'package:ams/screens/student/status_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class StudenScreen extends StatelessWidget {
-  const StudenScreen({super.key});
+  final FireStoreServices fs = FireStoreServices();
+  StudenScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -130,7 +134,9 @@ class StudenScreen extends StatelessWidget {
                   children: [
                     button(
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/proposal');
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const DigitalLetterScreen(),
+                          ));
                         },
                         child: 'NEW PROPOSAL'),
                     const SizedBox(
@@ -139,10 +145,10 @@ class StudenScreen extends StatelessWidget {
                     button(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const ScheduleScreen(),
+                            builder: (context) => ScheduleAppointment(),
                           ));
                         },
-                        child: 'Schedule'),
+                        child: 'SCHEDULE'),
                   ],
                 ),
                 const SizedBox(

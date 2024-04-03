@@ -3,6 +3,7 @@
 import 'package:ams/models/model.dart';
 import 'package:ams/screens/student/reply_screen.dart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RejectedScreen extends StatelessWidget {
@@ -12,6 +13,7 @@ class RejectedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
     return Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -23,7 +25,7 @@ class RejectedScreen extends StatelessWidget {
         child: Scaffold(
             backgroundColor: Colors.transparent,
             body: StreamBuilder<QuerySnapshot>(
-                stream: fs.getRejects(),
+                stream: fs.getRejects(uid),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     List<DocumentSnapshot> requestList = snapshot.data!.docs;

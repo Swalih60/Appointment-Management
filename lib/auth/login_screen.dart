@@ -8,6 +8,7 @@ class LoginScreen extends StatelessWidget {
     super.key,
     required this.onTap,
   });
+
   final Function()? onTap;
   final auth = FirebaseAuth.instance.currentUser;
   final emailController = TextEditingController();
@@ -35,11 +36,39 @@ class LoginScreen extends StatelessWidget {
               controller: emailController,
               hintText: 'Email',
               obsecureText: false,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const SnackBar(
+                        content: Text("Field should not be empty"),
+                        backgroundColor: Colors.red,
+                      );
+                    },
+                  );
+                }
+                return null;
+              },
             ),
             const SizedBox(
               height: 10,
             ),
             LoginTextfield(
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const SnackBar(
+                        content: Text("Field should not be empty"),
+                        backgroundColor: Colors.red,
+                      );
+                    },
+                  );
+                }
+                return null;
+              },
               controller: passwordController,
               hintText: 'Password',
               obsecureText: true,
