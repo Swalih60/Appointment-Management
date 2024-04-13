@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
 import 'package:ams/screens/student/file_upload_screen.dart';
@@ -26,8 +28,15 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
   String selectedItem1 = 'CSE';
   String selectedItem2 = '1';
 
+  String generateRandomId() {
+    final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+    final String randomString = Random().nextInt(9999999).toString();
+    return '$timestamp$randomString';
+  }
+
   @override
   Widget build(BuildContext context) {
+    String requestId = generateRandomId();
     final uid = FirebaseAuth.instance.currentUser!.uid;
     return Container(
       decoration: const BoxDecoration(
@@ -221,16 +230,15 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
                         )),
                   ),
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
                 ElevatedButton(
                     onPressed: () async {
-                      // File? selectedImage =
-                      //     await fs.getImageFromGallery(context);
-                      // if (selectedImage != null) {
-                      //   bool success =
-                      //       await fs.uploadFileForUser(selectedImage);
-                      // }
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => FileUploadScreen(),
+                        builder: (context) => FileUploadScreen(
+                          requestId: requestId,
+                        ),
                       ));
                     },
                     child: const Row(
@@ -255,6 +263,7 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
                         ));
                       } else {
                         fs.addReq(
+                            reqId: requestId,
                             uid: uid,
                             branch: selectedItem1,
                             sem: selectedItem,

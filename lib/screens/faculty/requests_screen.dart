@@ -1,12 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
+import 'package:ams/screens/faculty/files_screen.dart';
 import 'package:ams/screens/student/progress_screen.dart';
 import 'package:flutter/material.dart';
 
 class RequestFacScreen extends StatelessWidget {
   final TextEditingController text1 = TextEditingController();
   final FireStoreServices fs = FireStoreServices();
+  final String reqId;
   final String uid;
   final String from;
   final String to;
@@ -16,6 +18,7 @@ class RequestFacScreen extends StatelessWidget {
 
   RequestFacScreen(
       {super.key,
+      required this.reqId,
       required this.uid,
       required this.from,
       required this.to,
@@ -241,7 +244,31 @@ class RequestFacScreen extends StatelessWidget {
                         ],
                       )),
                 ],
-              )
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                      onPressed: () async {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => FilesScreen(
+                            userId: uid,
+                            reqId: reqId,
+                          ),
+                        ));
+                      },
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('Attached files'),
+                          Icon(Icons.attach_file),
+                        ],
+                      )),
+                ],
+              ),
             ],
           ),
         ),

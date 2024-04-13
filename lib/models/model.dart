@@ -9,7 +9,8 @@ class FireStoreServices {
       FirebaseFirestore.instance.collection("requests");
 
   Future<void> addReq(
-      {required String uid,
+      {required String reqId,
+      required String uid,
       required String subject,
       required String to,
       required String branch,
@@ -17,6 +18,7 @@ class FireStoreServices {
       required String from,
       required String body}) {
     return requests.add({
+      'reqId': reqId,
       'uid': uid,
       'Branch': branch,
       'Sem': sem,

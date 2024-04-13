@@ -6,7 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class FileUploadScreen extends StatefulWidget {
+  const FileUploadScreen({super.key, required this.requestId});
+
+  final String requestId;
+
   @override
+  // ignore: library_private_types_in_public_api
   _FileUploadScreenState createState() => _FileUploadScreenState();
 }
 
@@ -14,7 +19,7 @@ class _FileUploadScreenState extends State<FileUploadScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
   final ImagePicker _picker = ImagePicker();
-  List<String> _uploadedFiles = [];
+  final List _uploadedFiles = [];
 
   Future<void> _uploadFile(File file) async {
     final user = _auth.currentUser;
@@ -22,12 +27,13 @@ class _FileUploadScreenState extends State<FileUploadScreen> {
     final filename = file.path.split("/").last;
     if (userId != null) {
       String fileName =
-          '$userId/${DateTime.now().millisecondsSinceEpoch}-$filename';
+          '$userId/${widget.requestId}/${DateTime.now().millisecondsSinceEpoch}-$filename';
       try {
-        await _storage.ref().child(fileName).putFile(file);
+        final uploadTask = await _storage.ref().child(fileName).putFile(file);
+        final downloadUrl = await uploadTask.ref.getDownloadURL();
 
         setState(() {
-          _uploadedFiles.add(fileName);
+          _uploadedFiles.add({'name': fileName, 'url': downloadUrl});
         });
       } catch (e) {
         print('Error uploading file: $e');
@@ -51,20 +57,25 @@ class _FileUploadScreenState extends State<FileUploadScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('File Upload'),
+        title: const Text('Upload File'),
+        centerTitle: true,
       ),
       body: ListView.builder(
         itemCount: _uploadedFiles.length,
         itemBuilder: (context, index) {
+          final uploadedFile = _uploadedFiles[index];
           return ListTile(
-            title: Text(_uploadedFiles[index].split('-').last),
+            contentPadding: const EdgeInsets.all(20),
+            leading: Image.network(
+                uploadedFile['url']), // Display image as leading widget
+            title: Text(uploadedFile['name'].split('-').last),
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _pickFile,
         tooltip: 'Pick File',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.upload),
       ),
     );
   }
