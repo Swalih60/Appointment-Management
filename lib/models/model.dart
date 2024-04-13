@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class FireStoreServices {
   final CollectionReference requests =
@@ -196,13 +197,31 @@ class FireStoreServices {
     final rejectsStream = rejects.where('uid', isEqualTo: uid).snapshots();
     return rejectsStream;
   }
+}
 
-  Future<File?> getImageFromGallery(BuildContext context) async {
-    try {
-      List<MediaFile>? singleMedia =
-          await GalleryPicker.pickMedia(context: context, singleMedia: true);
-    } catch (e) {
-      print(e);
-    }
+Future<bool> uploadFileForUser(File file) async {
+  try {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final storageRef = FirebaseStorage.instance.ref();
+    final fileName = file.path.split("/").last;
+    final timestamp = DateTime.now().microsecondsSinceEpoch;
+    final uploadRef = storageRef.child("$uid/uploads/$timestamp-$fileName");
+    await uploadRef.putFile(file);
+    return true;
+  } catch (e) {
+    print(e);
+  }
+  return false;
+}
+
+Future<List<Reference>?> getUsersUploadedFiles() async {
+  try {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final storageRef = FirebaseStorage.instance.ref();
+    final uploadRefs = storageRef.child("$uid/uploads");
+    final uploads = await uploadRefs.listAll();
+    return uploads.items;
+  } catch (e) {
+    print(e);
   }
 }

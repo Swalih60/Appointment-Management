@@ -1,5 +1,6 @@
 import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
+import 'package:ams/screens/student/file_upload_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -221,7 +222,17 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
                   ),
                 ),
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      // File? selectedImage =
+                      //     await fs.getImageFromGallery(context);
+                      // if (selectedImage != null) {
+                      //   bool success =
+                      //       await fs.uploadFileForUser(selectedImage);
+                      // }
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => FileUploadScreen(),
+                      ));
+                    },
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
