@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class FireStoreServices {
   final CollectionReference requests =
@@ -192,5 +195,14 @@ class FireStoreServices {
   Stream<QuerySnapshot> getRejects(String uid) {
     final rejectsStream = rejects.where('uid', isEqualTo: uid).snapshots();
     return rejectsStream;
+  }
+
+  Future<File?> getImageFromGallery(BuildContext context) async {
+    try {
+      List<MediaFile>? singleMedia =
+          await GalleryPicker.pickMedia(context: context, singleMedia: true);
+    } catch (e) {
+      print(e);
+    }
   }
 }
