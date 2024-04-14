@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class FileUploadScreen extends StatefulWidget {
-  const FileUploadScreen({super.key, required this.requestId});
+  const FileUploadScreen({Key? key, required this.requestId}) : super(key: key);
 
   final String requestId;
 
@@ -19,7 +19,7 @@ class _FileUploadScreenState extends State<FileUploadScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
   final ImagePicker _picker = ImagePicker();
-  final List _uploadedFiles = [];
+  final List<Map<String, dynamic>> _uploadedFiles = [];
 
   Future<void> _uploadFile(File file) async {
     final user = _auth.currentUser;
@@ -38,6 +38,18 @@ class _FileUploadScreenState extends State<FileUploadScreen> {
       } catch (e) {
         print('Error uploading file: $e');
       }
+    }
+  }
+
+  Future<void> _deleteFile(int index) async {
+    final fileName = _uploadedFiles[index]['name'];
+    try {
+      await _storage.ref().child(fileName).delete();
+      setState(() {
+        _uploadedFiles.removeAt(index);
+      });
+    } catch (e) {
+      print('Error deleting file: $e');
     }
   }
 
@@ -66,9 +78,15 @@ class _FileUploadScreenState extends State<FileUploadScreen> {
           final uploadedFile = _uploadedFiles[index];
           return ListTile(
             contentPadding: const EdgeInsets.all(20),
-            leading: Image.network(
-                uploadedFile['url']), // Display image as leading widget
+            leading: Image.network(uploadedFile['url']),
             title: Text(uploadedFile['name'].split('-').last),
+            trailing: IconButton(
+              icon: const Icon(
+                Icons.delete,
+                color: Colors.red,
+              ),
+              onPressed: () => _deleteFile(index),
+            ),
           );
         },
       ),
