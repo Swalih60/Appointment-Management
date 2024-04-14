@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:ams/screens/faculty/full_image_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
@@ -26,17 +27,11 @@ class _FilesScreenState extends State<FilesScreen> {
   void initState() {
     super.initState();
     _fetchFileNames();
+    print("uid========${widget.userId}");
+    print("reqId========${widget.reqId}");
   }
 
   Future<void> _fetchFileNames() async {
-    // Assuming you have a Firebase Database reference called 'files'
-    // Replace 'files' with your actual database reference
-    // Assume that 'files' has a structure where each child represents a file name
-    // under the user's ID
-    // Example: /files/userId/randomNumber
-    // This assumes that you've stored the file names in the database
-    // Adjust this according to your actual database structure
-    // Here, we're assuming you have a 'files' node where each child is a file name
     final databaseFiles =
         await _storage.ref("${widget.userId}/${widget.reqId}").listAll();
 
@@ -49,12 +44,13 @@ class _FilesScreenState extends State<FilesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('File List'),
+        title: const Text('File List'),
       ),
       body: ListView.builder(
         itemCount: _fileNames.length,
         itemBuilder: (context, index) {
           final fileName = _fileNames[index];
+
           return ListTile(
             title: Text(fileName),
             leading: FutureBuilder(
@@ -63,9 +59,9 @@ class _FilesScreenState extends State<FilesScreen> {
                   .getDownloadURL(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else if (snapshot.hasError) {
-                  return Icon(Icons.error);
+                  return const Icon(Icons.error);
                 } else {
                   return Image.network(
                     snapshot.data as String, // URL of the image
@@ -76,10 +72,18 @@ class _FilesScreenState extends State<FilesScreen> {
                 }
               },
             ),
-            onTap: () {
-              // Navigate to a new screen to show the full image
-              // You can implement this according to your navigation setup
-              // Example: Navigator.push(context, MaterialPageRoute(builder: (context) => FullImageScreen(imageUrl: snapshot.data as String)));
+            onTap: () async {
+              String imageUrl = await _storage
+                  .ref('${widget.userId}/${widget.reqId}/$fileName')
+                  .getDownloadURL();
+              Navigator.push(
+                  // ignore: use_build_context_synchronously
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => FullImageScreen(
+                            imageUrl: imageUrl,
+                            fileName: fileName,
+                          )));
             },
           );
         },
