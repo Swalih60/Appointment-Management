@@ -1,13 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
-import 'package:ams/screens/faculty/requests_screen.dart';
+import 'package:ams/screens/faculty/year3_fac.dart/requests_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class ApprovalFacultyScreen extends StatelessWidget {
-  ApprovalFacultyScreen({Key? key}) : super(key: key);
+class ApprovalFacultyScreenYear4 extends StatelessWidget {
+  ApprovalFacultyScreenYear4({Key? key}) : super(key: key);
 
   FireStoreServices fs = FireStoreServices();
 
@@ -34,8 +34,10 @@ class ApprovalFacultyScreen extends StatelessWidget {
           ),
         ),
         body: StreamBuilder<QuerySnapshot>(
-          stream:
-              fs.requests.orderBy('TimeStamp', descending: true).snapshots(),
+          stream: fs.requests
+              .where('Sem', whereIn: ['S7', 'S8'])
+              .orderBy('TimeStamp', descending: true)
+              .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return StreamBuilder<List<String>>(
@@ -79,7 +81,7 @@ class ApprovalFacultyScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => RequestFacScreen(
+                                builder: (context) => RequestFacScreenYear3(
                                   uid: uid,
                                   docId: docID,
                                   from: requestFrom,

@@ -5,7 +5,7 @@ import 'package:ams/models/model.dart';
 import 'package:ams/screens/student/progress_screen.dart';
 import 'package:flutter/material.dart';
 
-class RequestFacScreen extends StatelessWidget {
+class RequestFacScreenYear2 extends StatelessWidget {
   final TextEditingController text1 = TextEditingController();
   final FireStoreServices fs = FireStoreServices();
   final String reqId;
@@ -16,7 +16,7 @@ class RequestFacScreen extends StatelessWidget {
   final String body;
   final String docId;
 
-  RequestFacScreen(
+  RequestFacScreenYear2(
       {super.key,
       required this.reqId,
       required this.uid,

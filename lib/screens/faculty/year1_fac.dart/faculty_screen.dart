@@ -1,10 +1,11 @@
+import 'package:ams/screens/faculty/year1_fac.dart/approval_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/components.dart';
+import '../../../components/components.dart';
 
-class FacultyScreen extends StatelessWidget {
-  const FacultyScreen({super.key});
+class FacultyScreenYear1 extends StatelessWidget {
+  const FacultyScreenYear1({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +135,12 @@ class FacultyScreen extends StatelessWidget {
                   width: 350,
                   child: button1(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/approval_faculty');
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ApprovalFacultyScreenYear1(),
+                            ));
                       },
                       text: 'Approval',
                       icon: Icons.handshake),
