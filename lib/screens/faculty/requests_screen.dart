@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:ams/components/attached_files.dart';
 import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
-import 'package:ams/screens/faculty/files_screen.dart';
 import 'package:ams/screens/student/progress_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -116,6 +116,7 @@ class RequestFacScreen extends StatelessWidget {
                             fs.updateReq(docId, 'FacultyApproval');
                           } else {
                             fs.addApprove(
+                              reqId: reqId,
                               uid: uid,
                               subject: subject,
                               to: to,
@@ -201,7 +202,9 @@ class RequestFacScreen extends StatelessWidget {
                                           body: body,
                                           id: docId,
                                           comment: text1.text,
-                                          by: 'Faculty');
+                                          by: 'Faculty',
+                                          reqId: reqId,
+                                          uid: uid);
                                       fs.addRemovesFac(
                                         id: docId,
                                       );
@@ -254,7 +257,7 @@ class RequestFacScreen extends StatelessWidget {
                   ElevatedButton(
                       onPressed: () async {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => FilesScreen(
+                          builder: (context) => AttachedFilesScreen(
                             userId: uid,
                             reqId: reqId,
                           ),

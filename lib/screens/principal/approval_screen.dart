@@ -53,6 +53,7 @@ class ApprovalPrincipalScreen extends StatelessWidget {
                         String docID = document.id;
                         Map<String, dynamic> data =
                             document.data() as Map<String, dynamic>;
+                        String reqId = data['reqId'] ?? 'Unknown';
                         String uid = data['uid'] ?? 'Unknown';
                         String requestFrom = data['From'] ?? 'Unknown';
                         String requestTo = data['To'] ?? 'Unknown';
@@ -85,6 +86,7 @@ class ApprovalPrincipalScreen extends StatelessWidget {
                                   to: requestTo,
                                   subject: requestSubject,
                                   body: requestBody,
+                                  reqId: reqId,
                                 ),
                               ),
                             );

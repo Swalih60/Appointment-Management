@@ -154,6 +154,7 @@ class FireStoreServices {
       FirebaseFirestore.instance.collection("approves");
 
   Future<void> addApprove({
+    required String reqId,
     required String uid,
     required String subject,
     required String to,
@@ -161,6 +162,7 @@ class FireStoreServices {
     required String id,
   }) {
     return approves.add({
+      'reqId': reqId,
       'uid': uid,
       'id': id,
       'To': to,
@@ -180,13 +182,17 @@ class FireStoreServices {
   Future<void> addRejects({
     required String subject,
     required String to,
+    required String uid,
     required String body,
     required String id,
+    required String reqId,
     required String comment,
     required String by,
   }) {
     return rejects.add({
+      'reqId': reqId,
       'id': id,
+      'uid': uid,
       'comment': comment,
       'To': to,
       'Subject': subject,
@@ -226,4 +232,5 @@ Future<List<Reference>?> getUsersUploadedFiles() async {
   } catch (e) {
     print(e);
   }
+  return null;
 }

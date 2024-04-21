@@ -42,6 +42,7 @@ class RejectedScreen extends StatelessWidget {
                         String requestBody = data['Body'] ?? 'Unknown';
                         String comment = data['comment'] ?? 'Unknown';
                         String by = data['by'] ?? 'Unknown';
+                        String reqId = data['reqId'] ?? 'Unknown';
 
                         if (requestTo == '1') {
                           requestTo = 'Faculty';
@@ -66,11 +67,14 @@ class RejectedScreen extends StatelessWidget {
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => ReplyScreen(
-                                      to: requestTo,
-                                      subject: requestSubject,
-                                      docId: docID,
-                                      body: requestBody,
-                                      comment: comment),
+                                    to: requestTo,
+                                    subject: requestSubject,
+                                    docId: docID,
+                                    body: requestBody,
+                                    comment: comment,
+                                    reqId: reqId,
+                                    uid: uid,
+                                  ),
                                 ));
                               },
                               title: Text(

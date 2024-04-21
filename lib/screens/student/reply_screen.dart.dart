@@ -1,7 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:ams/components/attached_files.dart';
 import 'package:flutter/material.dart';
 
 class ReplyScreen extends StatelessWidget {
+    final String uid;
+  final String reqId;
   final String to;
   final String subject;
   final String body;
@@ -10,6 +13,8 @@ class ReplyScreen extends StatelessWidget {
 
   const ReplyScreen({
     super.key,
+     required this.uid,
+    required this.reqId,
     required this.to,
     required this.subject,
     required this.docId,
@@ -19,6 +24,7 @@ class ReplyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -94,6 +100,30 @@ class ReplyScreen extends StatelessWidget {
                     )
                   ],
                 ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                      onPressed: () async {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => AttachedFilesScreen(
+                            userId: uid,
+                            reqId: reqId,
+                          ),
+                        ));
+                      },
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('Attached files'),
+                          Icon(Icons.attach_file),
+                        ],
+                      )),
+                ],
               ),
             ],
           ),

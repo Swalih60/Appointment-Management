@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:ams/components/attached_files.dart';
 import 'package:ams/models/model.dart';
 import 'package:ams/screens/student/progress_screen.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import '../../components/components.dart';
 class RequestPrincipalScreen extends StatelessWidget {
   final TextEditingController text1 = TextEditingController();
   final FireStoreServices fs = FireStoreServices();
+  final String reqId;
   final String uid;
   final String from;
   final String to;
@@ -17,6 +19,7 @@ class RequestPrincipalScreen extends StatelessWidget {
 
   RequestPrincipalScreen(
       {super.key,
+      required this.reqId,
       required this.uid,
       required this.from,
       required this.to,
@@ -119,6 +122,7 @@ class RequestPrincipalScreen extends StatelessWidget {
                               to: to,
                               body: body,
                               id: docId,
+                              reqId: reqId,
                             );
                           }
 
@@ -190,7 +194,9 @@ class RequestPrincipalScreen extends StatelessWidget {
                                           body: body,
                                           id: docId,
                                           comment: text1.text,
-                                          by: 'Principal');
+                                          by: 'Principal',
+                                          reqId: reqId,
+                                          uid: uid);
                                       fs.addRemovesPrinc(
                                         id: docId,
                                       );
@@ -230,7 +236,31 @@ class RequestPrincipalScreen extends StatelessWidget {
                         ],
                       )),
                 ],
-              )
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                      onPressed: () async {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => AttachedFilesScreen(
+                            userId: uid,
+                            reqId: reqId,
+                          ),
+                        ));
+                      },
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('Attached files'),
+                          Icon(Icons.attach_file),
+                        ],
+                      )),
+                ],
+              ),
             ],
           ),
         ),

@@ -87,31 +87,6 @@ class StudenScreen extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             actions: [
-              InkWell(
-                splashColor: Colors.black,
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    width: 30,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.transparent,
-                      border: Border.all(color: Colors.green, width: 3),
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.check,
-                        size: 25,
-                        color: Colors.green,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 15,
-              ),
               IconButton(
                 onPressed: () {},
                 icon: const Icon(Icons.notifications),
