@@ -1,4 +1,4 @@
-import 'package:ams/screens/faculty/year3_fac.dart/approval_screen.dart';
+import 'package:ams/screens/faculty/year4_fac.dart/approval_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -139,7 +139,7 @@ class FacultyScreenYear4 extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  ApprovalFacultyScreenYear3(),
+                                  ApprovalFacultyScreenYear4(),
                             ));
                       },
                       text: 'Approval',

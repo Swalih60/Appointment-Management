@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
-import 'package:ams/screens/faculty/year3_fac.dart/requests_screen.dart';
+import 'package:ams/screens/faculty/year4_fac.dart/requests_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -81,7 +81,7 @@ class ApprovalFacultyScreenYear4 extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => RequestFacScreenYear3(
+                                builder: (context) => RequestFacScreenYear4(
                                   uid: uid,
                                   docId: docID,
                                   from: requestFrom,
