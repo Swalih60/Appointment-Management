@@ -3,16 +3,91 @@ import 'package:ams/models/model.dart';
 import 'package:ams/screens/student/digital_screen.dart';
 import 'package:ams/screens/student/schedule_screen.dart';
 import 'package:ams/screens/student/status_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 
-class StudenScreen extends StatelessWidget {
+class StudenScreen extends StatefulWidget {
+  const StudenScreen({Key? key}) : super(key: key);
+
+  @override
+  State<StudenScreen> createState() => _StudenScreenState();
+}
+
+class _StudenScreenState extends State<StudenScreen> {
   final FireStoreServices fs = FireStoreServices();
-  StudenScreen({super.key});
+  DateTime today = DateTime.now();
+  Map<DateTime, List> events = {};
+  List<DateTime> princiDates = [];
+  List<DateTime> viceDates = [];
+  List<DateTime> asstDates = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchDates();
+  }
+
+  Future<void> fetchDates() async {
+    try {
+      // Fetch dates for princ
+      DocumentSnapshot princSnapshot = await FirebaseFirestore.instance
+          .collection('selected_dates')
+          .doc('princi')
+          .get();
+      if (princSnapshot.exists) {
+        List<dynamic> princDatesData = (princSnapshot.data() as Map)['dates'];
+        princDatesData.forEach((date) {
+          princiDates.add(DateTime.parse(date));
+        });
+      }
+
+      // Fetch dates for vice
+      DocumentSnapshot viceSnapshot = await FirebaseFirestore.instance
+          .collection('selected_dates')
+          .doc('vice')
+          .get();
+      if (viceSnapshot.exists) {
+        List<dynamic> viceDatesData = (viceSnapshot.data() as Map)['dates'];
+        viceDatesData.forEach((date) {
+          viceDates.add(DateTime.parse(date));
+        });
+      }
+
+      // Fetch dates for asst
+      DocumentSnapshot asstSnapshot = await FirebaseFirestore.instance
+          .collection('selected_dates')
+          .doc('asst')
+          .get();
+      if (asstSnapshot.exists) {
+        List<dynamic> asstDatesData = (asstSnapshot.data() as Map)['dates'];
+        asstDatesData.forEach((date) {
+          asstDates.add(DateTime.parse(date));
+        });
+      }
+
+      // Update the events map
+      events = {
+        for (DateTime date in princiDates) ...{
+          date: ['princi']
+        },
+        for (DateTime date in viceDates) ...{
+          date: ['vice']
+        },
+        for (DateTime date in asstDates) ...{
+          date: ['asst']
+        }
+      };
+
+      setState(() {});
+    } catch (e) {
+      print('Error fetching dates: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    String? uid = FirebaseAuth.instance.currentUser?.uid;
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -22,126 +97,124 @@ class StudenScreen extends StatelessWidget {
         ),
       ),
       child: Scaffold(
-          backgroundColor: Colors.transparent,
-          drawer: Drawer(
-              backgroundColor: Colors.deepPurple[100],
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 80,
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.black,
-                    ),
-                    height: 200,
-                    width: 200,
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.directions_run),
-                    title: const Text("S T A T U S"),
-                    onTap: () {
-                      Navigator.of(context).pushNamed('/progress');
-                    },
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.settings),
-                    title: const Text("S E T T T I N G S"),
-                    onTap: () {},
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.info),
-                    title: const Text("A B O U T  U S"),
-                    onTap: () {},
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.question_mark),
-                    title: const Text("H E L P"),
-                    onTap: () {},
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(top: 140),
-                    child: ListTile(
-                      leading: const Icon(Icons.logout),
-                      title: const Text("Sign Out"),
-                      onTap: () {
-                        FirebaseAuth.instance.signOut();
-                      },
-                    ),
-                  )
-                ],
-              )),
-          appBar: AppBar(
-            centerTitle: true,
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.notifications),
-              ),
-            ],
-            iconTheme: const IconThemeData(color: Colors.black),
-            backgroundColor: const Color.fromARGB(255, 183, 214, 240),
-            shadowColor: Colors.blue,
-            title: const Text(
-              "Student",
-              style: TextStyle(color: Colors.black),
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+              },
+              icon: const Icon(Icons.logout),
             ),
+          ],
+          iconTheme: const IconThemeData(color: Colors.black),
+          backgroundColor: const Color.fromARGB(255, 183, 214, 240),
+          shadowColor: Colors.blue,
+          title: const Text(
+            "Student",
+            style: TextStyle(color: Colors.black),
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    button(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const DigitalLetterScreen(),
-                          ));
-                        },
-                        child: 'NEW PROPOSAL'),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    button(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ScheduleAppointment(),
-                          ));
-                        },
-                        child: 'SCHEDULE'),
-                  ],
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TableCalendar(
+                focusedDay: today,
+                firstDay: DateTime.utc(2024),
+                lastDay: DateTime.utc(2030),
+                rowHeight: 60,
+                headerStyle: const HeaderStyle(
+                  titleCentered: true,
+                  formatButtonVisible: false,
                 ),
-                const SizedBox(
-                  height: 20,
+                eventLoader: (day) {
+                  return events[day] ?? [];
+                },
+                calendarBuilders: CalendarBuilders(
+                  defaultBuilder: (context, date, _) {
+                    // Customize the appearance of the day cell
+                    // Here, you can change the cell color based on the events (princ, vice, asst)
+                    Color cellColor = Colors.transparent;
+                    if (events.containsKey(date)) {
+                      final eventTypes = events[date];
+                      if (eventTypes!.contains('princi')) {
+                        cellColor = Colors.red; // Customize color for princ
+                      } else if (eventTypes.contains('vice')) {
+                        cellColor = Colors.blue; // Customize color for vice
+                      } else if (eventTypes.contains('asst')) {
+                        cellColor = Colors.green; // Customize color for asst
+                      }
+                    }
+                    return Container(
+                      margin: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: cellColor,
+                      ),
+                      child: Center(
+                        child: Text(
+                          '${date.day}',
+                          style: const TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
-                button(
+                onDaySelected: (selectedDay, focusedDay) {
+                  setState(() {
+                    today = selectedDay;
+                  });
+                },
+              ),
+              const SizedBox(
+                height: 80,
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  button(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const StatusScreen(),
+                        builder: (context) => const DigitalLetterScreen(),
                       ));
                     },
-                    child: 'Status'),
-                const SizedBox(
-                  height: 80,
-                )
-              ],
-            ),
-          )),
+                    child: 'NEW PROPOSAL',
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  button(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ScheduleAppointment(),
+                      ));
+                    },
+                    child: 'SCHEDULE',
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              button(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const StatusScreen(),
+                  ));
+                },
+                child: 'Status',
+              ),
+              const SizedBox(
+                height: 80,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
