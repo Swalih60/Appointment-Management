@@ -9,7 +9,6 @@ import 'package:ams/screens/hod/hod_screen.dart';
 import 'package:ams/screens/principal/approval_screen.dart';
 import 'package:ams/screens/principal/principal_screen.dart';
 import 'package:ams/screens/student/digital_screen.dart';
-import 'package:ams/screens/student/progress_screen.dart';
 import 'package:ams/screens/student/student_screen.dart';
 import 'package:ams/screens/vicePrincipal/approval_screen.dart';
 import 'package:ams/screens/vicePrincipal/vice_screen.dart';
@@ -37,7 +36,6 @@ class MainApp extends StatelessWidget {
         '/faculty': (context) => const FacultyScreenYear1(),
         '/student': (context) => const StudenScreen(),
         '/digital': (context) => const DigitalLetterScreen(),
-        '/progress': (context) => const ProgressScreen(),
         '/hod': (context) => const HodScreen(),
         '/approval_faculty': (context) => ApprovalFacultyScreenYear1(),
         '/approval_hod': (context) => ApprovalHodScreen(),

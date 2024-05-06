@@ -2,7 +2,6 @@
 import 'package:ams/components/attached_files.dart';
 import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
-import 'package:ams/screens/student/progress_screen.dart';
 import 'package:flutter/material.dart';
 
 class RequestHodScreen extends StatelessWidget {
@@ -111,6 +110,7 @@ class RequestHodScreen extends StatelessWidget {
                               const MaterialStatePropertyAll(Colors.green),
                         ),
                         onPressed: () {
+                          fs.updateReq(docId, 'Hod');
                           int? toValue = int.tryParse(to);
                           if (toValue != null && toValue > 2) {
                             fs.updateReq(docId, 'HodApproval');
@@ -127,7 +127,6 @@ class RequestHodScreen extends StatelessWidget {
                           fs.addRemovesHod(
                             id: docId,
                           );
-                          hodColor.value = Colors.green;
 
                           Navigator.of(context).pop();
 
@@ -198,7 +197,6 @@ class RequestHodScreen extends StatelessWidget {
                                       fs.addRemovesHod(
                                         id: docId,
                                       );
-                                      hodColor.value = Colors.green;
 
                                       Navigator.of(context).pop();
                                       Navigator.of(context).pop();

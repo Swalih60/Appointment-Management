@@ -13,7 +13,7 @@ class LoginScreen extends StatelessWidget {
   final Function()? onTap;
   final auth = FirebaseAuth.instance.currentUser;
   final emailController = TextEditingController();
-
+  bool obscureText = true;
   final passwordController = TextEditingController();
 
   @override

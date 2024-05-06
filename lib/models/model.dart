@@ -28,9 +28,14 @@ class FireStoreServices {
       'Body': body,
       'TimeStamp': Timestamp.now(),
       'FacultyApproval': false,
+      'Fac': false,
       'HodApproval': false,
+      'Hod': false,
       'ViceApproval': false,
+      'Vice': false,
       'PrincipalApproval': false,
+      'Princi': false,
+      'Asst': false,
     });
   }
 

@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ams/components/attached_files.dart';
 import 'package:ams/models/model.dart';
-import 'package:ams/screens/student/progress_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/components.dart';
@@ -112,6 +111,7 @@ class RequestViceScreen extends StatelessWidget {
                               const MaterialStatePropertyAll(Colors.green),
                         ),
                         onPressed: () {
+                          fs.updateReq(docId, 'Vice');
                           int? toValue = int.tryParse(to);
                           if (toValue != null && toValue > 3) {
                             fs.updateReq(docId, 'ViceApproval');
@@ -125,8 +125,6 @@ class RequestViceScreen extends StatelessWidget {
                               reqId: reqId,
                             );
                           }
-
-                          viceColor.value = Colors.green;
 
                           fs.addRemovesVice(
                             id: docId,
@@ -188,7 +186,6 @@ class RequestViceScreen extends StatelessWidget {
                                     icon: const Icon(Icons.close)),
                                 IconButton(
                                     onPressed: () {
-                                      viceColor.value = Colors.red;
                                       fs.addRejects(
                                           subject: subject,
                                           to: to,

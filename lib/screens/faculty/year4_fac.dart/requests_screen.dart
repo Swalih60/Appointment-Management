@@ -2,7 +2,6 @@
 import 'package:ams/components/attached_files.dart';
 import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
-import 'package:ams/screens/student/progress_screen.dart';
 import 'package:flutter/material.dart';
 
 class RequestFacScreenYear4 extends StatelessWidget {
@@ -111,6 +110,7 @@ class RequestFacScreenYear4 extends StatelessWidget {
                               const MaterialStatePropertyAll(Colors.green),
                         ),
                         onPressed: () {
+                          fs.updateReq(docId, 'Fac');
                           int? toValue = int.tryParse(to);
                           if (toValue != null && toValue > 1) {
                             fs.updateReq(docId, 'FacultyApproval');
@@ -136,8 +136,6 @@ class RequestFacScreenYear4 extends StatelessWidget {
                           fs.addRemovesFac(
                             id: docId,
                           );
-
-                          facColor.value = Colors.green;
 
                           Navigator.of(context).pop();
 
@@ -208,8 +206,6 @@ class RequestFacScreenYear4 extends StatelessWidget {
                                       fs.addRemovesFac(
                                         id: docId,
                                       );
-
-                                      facColor.value = Colors.red;
 
                                       Navigator.of(context).pop();
                                       Navigator.of(context).pop();

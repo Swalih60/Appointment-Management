@@ -2,7 +2,6 @@
 import 'package:ams/components/attached_files.dart';
 import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
-import 'package:ams/screens/student/progress_screen.dart';
 import 'package:flutter/material.dart';
 
 class RequestAsstScreen extends StatelessWidget {
@@ -111,6 +110,7 @@ class RequestAsstScreen extends StatelessWidget {
                               const MaterialStatePropertyAll(Colors.green),
                         ),
                         onPressed: () {
+                          fs.updateReq(docId, 'Asst');
                           fs.addApprove(
                             uid: uid,
                             subject: subject,
@@ -122,8 +122,6 @@ class RequestAsstScreen extends StatelessWidget {
                           fs.addRemovesAsst(
                             id: docId,
                           );
-
-                          asstColor.value = Colors.green;
 
                           Navigator.of(context).pop();
 
@@ -194,8 +192,6 @@ class RequestAsstScreen extends StatelessWidget {
                                       fs.addRemovesAsst(
                                         id: docId,
                                       );
-
-                                      asstColor.value = Colors.red;
 
                                       Navigator.of(context).pop();
                                       Navigator.of(context).pop();
