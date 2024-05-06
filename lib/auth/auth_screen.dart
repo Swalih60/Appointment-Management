@@ -22,24 +22,24 @@ class AuthScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final uid = FirebaseAuth.instance.currentUser?.uid;
-            if (uid == '7kkEzh8uX8hCc0k4C9k3xHjhqc42') {
+            if (uid == '5PeekWMyJOfapxh2duMq4yDxjN22') {
               return const ViceScreen();
-            } else if (uid == 'XMb1clFkN3gDmaS6xViHc3LsSWh2') {
+            } else if (uid == 'jHu8AksxVFVwhp4syrRhg9pjBqj1') {
               return const AsstScreen();
-            } else if (uid == 'CItfuzgrysg3gbk2G5Q8Fgke80n1') {
+            } else if (uid == 'zofcA4Ov87Y4sJsOQ4Co6PmdLVN2') {
               return const PrincipalScreen();
-            } else if (uid == '2169F4vStnQyYNahJxpEpNoX4rd2') {
+            } else if (uid == 'HuY0JwDKqmZsstiYLLvDiZUwoMF3') {
               return const FacultyScreenYear1();
-            } else if (uid == '4rSESY1K7kcFiYY5ctElTqbWGCI3') {
+            } else if (uid == 'G6n2Q4AZoYVNkRmXHfk8MFhNSAB3') {
               return const HodScreen();
-            } else if (uid == '9hUseMU9jpOo2NdyGF9PqrIVY652') {
+            } else if (uid == 'p6TdZpfXbodMSKKRvUYsGiqZFNh1') {
               return const FacultyScreenYear2();
-            } else if (uid == 'oOgYlVROVFZtUVEYUrDyRjjT6dz1') {
+            } else if (uid == 'OOyHRughnFVFxsg3io13WXsfCz63') {
               return const FacultyScreenYear3();
-            } else if (uid == 'gGfB3IjeRCc7qEH5wEmLI4Zeawb2') {
+            } else if (uid == '1xaWC585gjTAyfnfL47zjnEZWos2') {
               return const FacultyScreenYear4();
             } else {
-              return StudenScreen();
+              return const StudenScreen();
             }
           } else {
             return const LoginOrRegisterScreen();

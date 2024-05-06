@@ -17,6 +17,7 @@ class StudenScreen extends StatefulWidget {
 
 class _StudenScreenState extends State<StudenScreen> {
   final FireStoreServices fs = FireStoreServices();
+  final emailId = FirebaseAuth.instance.currentUser!.email;
   DateTime today = DateTime.now();
   Map<DateTime, List> events = {};
   List<DateTime> princiDates = [];
@@ -111,9 +112,9 @@ class _StudenScreenState extends State<StudenScreen> {
           iconTheme: const IconThemeData(color: Colors.black),
           backgroundColor: const Color.fromARGB(255, 183, 214, 240),
           shadowColor: Colors.blue,
-          title: const Text(
-            "Student",
-            style: TextStyle(color: Colors.black),
+          title: Text(
+            emailId!,
+            style: const TextStyle(color: Colors.black),
           ),
         ),
         body: Center(
@@ -121,7 +122,6 @@ class _StudenScreenState extends State<StudenScreen> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TableCalendar(
-                focusedDay: today,
                 firstDay: DateTime.utc(2024),
                 lastDay: DateTime.utc(2030),
                 rowHeight: 60,
@@ -137,6 +137,14 @@ class _StudenScreenState extends State<StudenScreen> {
                     // Customize the appearance of the day cell
                     // Here, you can change the cell color based on the events (princ, vice, asst)
                     Color cellColor = Colors.transparent;
+
+                    if (date.year == today.year &&
+                        date.month == today.month &&
+                        date.day == today.day) {
+                      cellColor =
+                          Colors.grey; // Highlight today's date with grey color
+                    }
+
                     if (events.containsKey(date)) {
                       final eventTypes = events[date];
                       if (eventTypes!.contains('princi')) {
@@ -169,6 +177,7 @@ class _StudenScreenState extends State<StudenScreen> {
                     today = selectedDay;
                   });
                 },
+                focusedDay: today,
               ),
               const SizedBox(
                 height: 80,
