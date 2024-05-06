@@ -25,13 +25,16 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(
+              height: 50,
+            ),
             const Image(
               image: AssetImage('assets/AMS_LOGO1.png'),
               width: 380,
               height: 150,
             ),
             const SizedBox(
-              height: 25,
+              height: 80,
             ),
             LoginTextfield(
               controller: emailController,
@@ -97,7 +100,7 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 25,
+              height: 50,
             ),
             button2(
               onTap: () async {
@@ -119,30 +122,30 @@ class LoginScreen extends StatelessWidget {
             const SizedBox(
               height: 50,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Not a member?',
-                  style: TextStyle(
-                    color: Colors.grey[700],
-                  ),
-                ),
-                const SizedBox(
-                  width: 4,
-                ),
-                GestureDetector(
-                  onTap: onTap,
-                  child: const Text(
-                    'Register now',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                )
-              ],
-            )
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Text(
+            //       'Not a member?',
+            //       style: TextStyle(
+            //         color: Colors.grey[700],
+            //       ),
+            //     ),
+            //     const SizedBox(
+            //       width: 4,
+            //     ),
+            //     GestureDetector(
+            //       onTap: onTap,
+            //       child: const Text(
+            //         'Register now',
+            //         style: TextStyle(
+            //           color: Colors.blue,
+            //           fontWeight: FontWeight.bold,
+            //         ),
+            //       ),
+            //     )
+            //   ],
+            // )
           ],
         ),
       )),

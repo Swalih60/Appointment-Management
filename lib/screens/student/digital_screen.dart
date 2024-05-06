@@ -16,7 +16,7 @@ class DigitalLetterScreen extends StatefulWidget {
 class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
   final FireStoreServices fs = FireStoreServices();
 
-  final TextEditingController from = TextEditingController();
+  String? from = FirebaseAuth.instance.currentUser!.displayName;
 
   final TextEditingController to = TextEditingController();
 
@@ -25,7 +25,7 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
   final TextEditingController body = TextEditingController();
 
   String selectedItem = 'S1';
-  String selectedItem1 = 'CSE';
+  // String selectedItem1 = 'CSE';
   String selectedItem2 = '1';
 
   String generateRandomId() {
@@ -62,53 +62,60 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Padding(
-                    padding: const EdgeInsets.only(
-                      right: 150,
-                      left: 10,
-                    ),
-                    child: textfield(
-                      text: 'From',
-                      controller: from,
-                    )),
+                Row(children: [
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  const Text(
+                    "From:     ",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    from!,
+                    style: const TextStyle(fontSize: 18),
+                  )
+                ]),
                 Padding(
                   padding: const EdgeInsets.only(left: 20.0),
                   child: Row(
                     children: [
-                      DropdownButton<String>(
-                        icon: const Icon(Icons.arrow_drop_down),
-                        value: selectedItem1,
-                        items: const [
-                          DropdownMenuItem<String>(
-                            value: 'CSE',
-                            child: Text("CSE"),
-                          ),
-                          DropdownMenuItem<String>(
-                            value: 'EC',
-                            child: Text("EC"),
-                          ),
-                          DropdownMenuItem<String>(
-                            value: 'CIVIL',
-                            child: Text("CIVIL"),
-                          ),
-                          DropdownMenuItem<String>(
-                            value: 'MECH',
-                            child: Text("MECH"),
-                          ),
-                          DropdownMenuItem<String>(
-                            value: 'EEE',
-                            child: Text("EEE"),
-                          ),
-                        ],
-                        onChanged: (newValue) {
-                          setState(() {
-                            selectedItem1 = newValue!;
-                          });
-                        },
-                      ),
-                      const SizedBox(
-                        width: 30,
-                      ),
+                      // DropdownButton<String>(
+                      //   icon: const Icon(Icons.arrow_drop_down),
+                      //   value: selectedItem1,
+                      //   items: const [
+                      //     DropdownMenuItem<String>(
+                      //       value: 'CSE',
+                      //       child: Text("CSE"),
+                      //     ),
+                      //     DropdownMenuItem<String>(
+                      //       value: 'EC',
+                      //       child: Text("EC"),
+                      //     ),
+                      //     DropdownMenuItem<String>(
+                      //       value: 'CIVIL',
+                      //       child: Text("CIVIL"),
+                      //     ),
+                      //     DropdownMenuItem<String>(
+                      //       value: 'MECH',
+                      //       child: Text("MECH"),
+                      //     ),
+                      //     DropdownMenuItem<String>(
+                      //       value: 'EEE',
+                      //       child: Text("EEE"),
+                      //     ),
+                      //   ],
+                      //   onChanged: (newValue) {
+                      //     setState(() {
+                      //       selectedItem1 = newValue!;
+                      //     });
+                      //   },
+                      // ),
+                      // const SizedBox(
+                      //   width: 30,
+                      // ),
                       DropdownButton<String>(
                         icon: const Icon(Icons.arrow_drop_down),
                         value: selectedItem,
@@ -253,9 +260,7 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
                 ),
                 button1(
                     onPressed: () {
-                      if (from.text.isEmpty ||
-                          subject.text.isEmpty ||
-                          body.text.isEmpty) {
+                      if (subject.text.isEmpty || body.text.isEmpty) {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                           content: Text("Empty field"),
@@ -265,9 +270,9 @@ class _DigitalLetterScreenState extends State<DigitalLetterScreen> {
                         fs.addReq(
                             reqId: requestId,
                             uid: uid,
-                            branch: selectedItem1,
+                            branch: 'CSE',
                             sem: selectedItem,
-                            from: from.text,
+                            from: from!,
                             to: selectedItem2,
                             subject: subject.text,
                             body: body.text);

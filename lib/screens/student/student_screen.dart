@@ -17,7 +17,7 @@ class StudenScreen extends StatefulWidget {
 
 class _StudenScreenState extends State<StudenScreen> {
   final FireStoreServices fs = FireStoreServices();
-  final emailId = FirebaseAuth.instance.currentUser!.email;
+  final displayName = FirebaseAuth.instance.currentUser!.displayName;
   DateTime today = DateTime.now();
   Map<DateTime, List> events = {};
   List<DateTime> princiDates = [];
@@ -113,7 +113,7 @@ class _StudenScreenState extends State<StudenScreen> {
           backgroundColor: const Color.fromARGB(255, 183, 214, 240),
           shadowColor: Colors.blue,
           title: Text(
-            emailId!,
+            displayName!,
             style: const TextStyle(color: Colors.black),
           ),
         ),
