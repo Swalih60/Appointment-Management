@@ -72,139 +72,129 @@ class _AsstScreenState extends State<AsstScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xfff6f6f6), Color(0xff6b64e8)],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+            },
+            icon: const Icon(Icons.logout),
+          ),
+        ],
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: Colors.blueAccent,
+        shadowColor: Colors.blue,
+        title: const Text(
+          "ASST MANAGER",
+          style: TextStyle(color: Colors.white),
         ),
       ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          centerTitle: true,
-          actions: [
-            IconButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-              },
-              icon: const Icon(Icons.logout),
-            ),
-          ],
-          iconTheme: const IconThemeData(color: Colors.black),
-          backgroundColor: const Color.fromARGB(255, 183, 214, 240),
-          shadowColor: Colors.blue,
-          title: const Text(
-            "ASST MANAGER",
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TableCalendar(
-                focusedDay: today,
-                firstDay: DateTime.utc(2024),
-                lastDay: DateTime.utc(2030),
-                rowHeight: 60,
-                headerStyle: const HeaderStyle(
-                  titleCentered: true,
-                  formatButtonVisible: false,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TableCalendar(
+              focusedDay: today,
+              firstDay: DateTime.utc(2024),
+              lastDay: DateTime.utc(2030),
+              rowHeight: 60,
+              headerStyle: const HeaderStyle(
+                titleCentered: true,
+                formatButtonVisible: false,
+              ),
+              selectedDayPredicate: (day) => selectedDates.contains(day),
+              calendarStyle: const CalendarStyle(
+                selectedDecoration: BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
                 ),
-                selectedDayPredicate: (day) => selectedDates.contains(day),
-                calendarStyle: const CalendarStyle(
-                  selectedDecoration: BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
-                  ),
-                ),
-                onDaySelected: (selectedDay, focusedDay) {
-                  String select =
-                      ("${selectedDay.day}/${selectedDay.month}/${selectedDay.year}");
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        content: Text(
-                          "Mark Leave on $select ?",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
+              ),
+              onDaySelected: (selectedDay, focusedDay) {
+                String select =
+                    ("${selectedDay.day}/${selectedDay.month}/${selectedDay.year}");
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      content: Text(
+                        "Mark Leave on $select ?",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
-                        actions: [
-                          IconButton(
-                            color: Colors.red,
-                            onPressed: () {
-                              setState(() {
-                                selectedDates.remove(selectedDay);
-                                onSelectedDatesUpdated(selectedDates);
-                              });
-                              Navigator.of(context).pop();
-                            },
-                            icon: const Icon(Icons.close),
-                          ),
-                          IconButton(
-                            color: Colors.green,
-                            onPressed: () {
-                              setState(() {
-                                selectedDates.add(selectedDay);
-                                onSelectedDatesUpdated(selectedDates);
-                              });
-                              Navigator.of(context).pop();
-                            },
-                            icon: const Icon(Icons.check),
-                          ),
-                        ],
-                      );
+                      ),
+                      actions: [
+                        IconButton(
+                          color: Colors.red,
+                          onPressed: () {
+                            setState(() {
+                              selectedDates.remove(selectedDay);
+                              onSelectedDatesUpdated(selectedDates);
+                            });
+                            Navigator.of(context).pop();
+                          },
+                          icon: const Icon(Icons.close),
+                        ),
+                        IconButton(
+                          color: Colors.green,
+                          onPressed: () {
+                            setState(() {
+                              selectedDates.add(selectedDay);
+                              onSelectedDatesUpdated(selectedDates);
+                            });
+                            Navigator.of(context).pop();
+                          },
+                          icon: const Icon(Icons.check),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+            const SizedBox(
+              height: 80,
+            ),
+            Column(
+              children: [
+                SizedBox(
+                  height: 70,
+                  width: 350,
+                  child: button1(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/approval_asst');
                     },
-                  );
-                },
-              ),
-              const SizedBox(
-                height: 80,
-              ),
-              Column(
-                children: [
-                  SizedBox(
-                    height: 70,
-                    width: 350,
-                    child: button1(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/approval_asst');
-                      },
-                      text: 'Approval',
-                      icon: Icons.handshake,
-                    ),
+                    text: 'Approval',
+                    icon: Icons.handshake,
                   ),
-                  const SizedBox(
-                    height: 10,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  height: 70,
+                  width: 350,
+                  child: button1(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ApproveOrRejectAsst(uid: uid),
+                          ));
+                    },
+                    text: 'Appointments',
+                    icon: Icons.handshake,
                   ),
-                  SizedBox(
-                    height: 70,
-                    width: 350,
-                    child: button1(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  ApproveOrRejectAsst(uid: uid),
-                            ));
-                      },
-                      text: 'Appointments',
-                      icon: Icons.handshake,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 60,
-              )
-            ],
-          ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 60,
+            )
+          ],
         ),
       ),
     );

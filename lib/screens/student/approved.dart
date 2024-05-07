@@ -14,97 +14,89 @@ class ApprovedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final uid = FirebaseAuth.instance.currentUser!.uid;
-    return Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xfff6f6f6), Color(0xff6b64e8)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Scaffold(
-            backgroundColor: Colors.transparent,
-            body: StreamBuilder<QuerySnapshot>(
-                stream: fs.getApproves(uid),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    List<DocumentSnapshot> requestList = snapshot.data!.docs;
-                    return ListView.builder(
-                      itemCount: requestList.length,
-                      itemBuilder: (context, index) {
-                        DocumentSnapshot document = requestList[index];
-                        String docID = document.id;
-                        Map<String, dynamic> data =
-                            document.data() as Map<String, dynamic>;
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: StreamBuilder<QuerySnapshot>(
+            stream: fs.getApproves(uid),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<DocumentSnapshot> requestList = snapshot.data!.docs;
+                return ListView.builder(
+                  itemCount: requestList.length,
+                  itemBuilder: (context, index) {
+                    DocumentSnapshot document = requestList[index];
+                    String docID = document.id;
+                    Map<String, dynamic> data =
+                        document.data() as Map<String, dynamic>;
 
-                        String requestTo = data['To'] ?? 'Unknown';
-                        String requestSubject = data['Subject'] ?? 'Unknown';
-                        String requestBody = data['Body'] ?? 'Unknown';
-                        String comment = data['comment'] ?? 'Unknown';
-                        String reqId = data['reqId'] ?? 'Unknown';
+                    String requestTo = data['To'] ?? 'Unknown';
+                    String requestSubject = data['Subject'] ?? 'Unknown';
+                    String requestBody = data['Body'] ?? 'Unknown';
+                    String comment = data['comment'] ?? 'Unknown';
+                    String reqId = data['reqId'] ?? 'Unknown';
 
-                        if (requestTo == '1') {
-                          requestTo = 'Faculty';
-                        } else if (requestTo == '2') {
-                          requestTo = 'Hod';
-                        } else if (requestTo == '3') {
-                          requestTo = 'Vice Principal';
-                        } else if (requestTo == '4') {
-                          requestTo = 'Principal';
-                        } else if (requestTo == '5') {
-                          requestTo = 'Asst Manager';
-                        }
+                    if (requestTo == '1') {
+                      requestTo = 'Faculty';
+                    } else if (requestTo == '2') {
+                      requestTo = 'Hod';
+                    } else if (requestTo == '3') {
+                      requestTo = 'Vice Principal';
+                    } else if (requestTo == '4') {
+                      requestTo = 'Principal';
+                    } else if (requestTo == '5') {
+                      requestTo = 'Asst Manager';
+                    }
 
-                        return Card(
-                          elevation: 4.0,
-                          margin: const EdgeInsets.all(8.0),
-                          child: Container(
-                            color: const Color.fromARGB(255, 114, 189, 250),
-                            child: ListTile(
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 16.0, vertical: 8.0),
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => ReplyScreen(
-                                    to: requestTo,
-                                    subject: requestSubject,
-                                    docId: docID,
-                                    body: requestBody,
-                                    comment: comment,
-                                    reqId: reqId,
-                                    uid: uid,
-                                  ),
-                                ));
-                              },
-                              title: Text(
-                                requestTo,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18.0,
-                                  color: Colors.black,
-                                ),
+                    return Card(
+                      elevation: 4.0,
+                      margin: const EdgeInsets.all(8.0),
+                      child: Container(
+                        color: const Color.fromARGB(255, 114, 189, 250),
+                        child: ListTile(
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16.0, vertical: 8.0),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ReplyScreen(
+                                to: requestTo,
+                                subject: requestSubject,
+                                docId: docID,
+                                body: requestBody,
+                                comment: comment,
+                                reqId: reqId,
+                                uid: uid,
                               ),
-                              subtitle: Text(
-                                requestSubject,
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colors.grey[700],
-                                ),
-                              ),
-                              trailing: const Text(
-                                'Approved',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green),
-                              ),
+                            ));
+                          },
+                          title: Text(
+                            requestTo,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.0,
+                              color: Colors.black,
                             ),
                           ),
-                        );
-                      },
+                          subtitle: Text(
+                            requestSubject,
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                          trailing: const Text(
+                            'Approved',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green),
+                          ),
+                        ),
+                      ),
                     );
-                  } else {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                })));
+                  },
+                );
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            }));
   }
 }

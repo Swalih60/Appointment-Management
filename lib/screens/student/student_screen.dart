@@ -91,155 +91,210 @@ class _StudenScreenState extends State<StudenScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xfff6f6f6), Color(0xff6b64e8)],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+            },
+            icon: const Icon(Icons.logout),
+          ),
+        ],
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: Colors.blueAccent,
+        shadowColor: Colors.blue,
+        title: Text(
+          displayName!,
+          style: const TextStyle(color: Colors.white),
         ),
       ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          centerTitle: true,
-          actions: [
-            IconButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            const Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'Asst Manager Leave',
+                  style: TextStyle(
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                ),
+                Text(
+                  'Principal Leave',
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                ),
+                Text(
+                  'Vice Principal Leave',
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
+            TableCalendar(
+              firstDay: DateTime.utc(2024),
+              lastDay: DateTime.utc(2030),
+              rowHeight: 60,
+              headerStyle: const HeaderStyle(
+                titleCentered: true,
+                formatButtonVisible: false,
+              ),
+              eventLoader: (day) {
+                return events[day] ?? [];
               },
-              icon: const Icon(Icons.logout),
+              calendarStyle: const CalendarStyle(
+                  todayDecoration: BoxDecoration(
+                    // color:Color(0xFFEE3240),
+                    color: Colors.blue,
+                    shape: BoxShape.circle,
+                  ),
+                  todayTextStyle: TextStyle(
+                    color: Colors.amber,
+                  ),
+                  selectedDecoration: BoxDecoration(
+                    color: Colors.black,
+                    shape: BoxShape.circle,
+                  ),
+                  selectedTextStyle: TextStyle(
+                    color: Colors.blue,
+                  ),
+                  defaultTextStyle: TextStyle(
+                    color: Colors.black,
+                  ),
+                  weekendTextStyle: TextStyle(
+                    // color:Color(0xFFEE3240),
+                    color: Colors.red,
+                  )),
+              daysOfWeekStyle: const DaysOfWeekStyle(
+                weekdayStyle: TextStyle(
+                  color: Colors.black,
+                ),
+                weekendStyle: TextStyle(
+                  color: Colors.red,
+                ),
+              ),
+              calendarBuilders: CalendarBuilders(
+                defaultBuilder: (context, date, _) {
+                  // Customize the appearance of the day cell
+                  // Here, you can change the cell color based on the events (princ, vice, asst)
+                  Color cellColor = Colors.transparent;
+
+                  bool isToday = date.year == today.year &&
+                      date.month == today.month &&
+                      date.day == today.day;
+
+                  Color borderColor =
+                      isToday ? Colors.grey : Colors.transparent;
+
+                  if (events.containsKey(date)) {
+                    final eventTypes = events[date];
+                    if (eventTypes!.contains('princi')) {
+                      cellColor = Colors.red; // Customize color for princ
+                    } else if (eventTypes.contains('vice')) {
+                      cellColor = Colors.blue; // Customize color for vice
+                    } else if (eventTypes.contains('asst')) {
+                      cellColor = Colors.green; // Customize color for asst
+                    }
+                  }
+                  return Container(
+                    margin: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: cellColor,
+                      border: Border.all(color: borderColor),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '${date.day}',
+                        style: const TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              onDaySelected: (selectedDay, focusedDay) {
+                setState(() {
+                  today = selectedDay;
+                });
+              },
+              focusedDay: today,
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                button(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const DigitalLetterScreen(),
+                    ));
+                  },
+                  child: 'NEW PROPOSAL',
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                button(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => StudentHomePage(
+                        uid: uid,
+                      ),
+                    ));
+                  },
+                  child: 'SCHEDULE',
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                button(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const StatusScreen(),
+                    ));
+                  },
+                  child: 'Status',
+                ),
+                const SizedBox(width: 10),
+                button(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ProgressListScreen(),
+                    ));
+                  },
+                  child: 'Progress',
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 30,
             ),
           ],
-          iconTheme: const IconThemeData(color: Colors.black),
-          backgroundColor: const Color.fromARGB(255, 183, 214, 240),
-          shadowColor: Colors.blue,
-          title: Text(
-            displayName!,
-            style: const TextStyle(color: Colors.black),
-          ),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TableCalendar(
-                firstDay: DateTime.utc(2024),
-                lastDay: DateTime.utc(2030),
-                rowHeight: 60,
-                headerStyle: const HeaderStyle(
-                  titleCentered: true,
-                  formatButtonVisible: false,
-                ),
-                eventLoader: (day) {
-                  return events[day] ?? [];
-                },
-                calendarBuilders: CalendarBuilders(
-                  defaultBuilder: (context, date, _) {
-                    // Customize the appearance of the day cell
-                    // Here, you can change the cell color based on the events (princ, vice, asst)
-                    Color cellColor = Colors.transparent;
-
-                    if (date.year == today.year &&
-                        date.month == today.month &&
-                        date.day == today.day) {
-                      cellColor =
-                          Colors.grey; // Highlight today's date with grey color
-                    }
-
-                    if (events.containsKey(date)) {
-                      final eventTypes = events[date];
-                      if (eventTypes!.contains('princi')) {
-                        cellColor = Colors.red; // Customize color for princ
-                      } else if (eventTypes.contains('vice')) {
-                        cellColor = Colors.blue; // Customize color for vice
-                      } else if (eventTypes.contains('asst')) {
-                        cellColor = Colors.green; // Customize color for asst
-                      }
-                    }
-                    return Container(
-                      margin: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: cellColor,
-                      ),
-                      child: Center(
-                        child: Text(
-                          '${date.day}',
-                          style: const TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                onDaySelected: (selectedDay, focusedDay) {
-                  setState(() {
-                    today = selectedDay;
-                  });
-                },
-                focusedDay: today,
-              ),
-              const SizedBox(
-                height: 80,
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  button(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const DigitalLetterScreen(),
-                      ));
-                    },
-                    child: 'NEW PROPOSAL',
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  button(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => StudentHomePage(
-                          uid: uid,
-                        ),
-                      ));
-                    },
-                    child: 'SCHEDULE',
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  button(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const StatusScreen(),
-                      ));
-                    },
-                    child: 'Status',
-                  ),
-                  const SizedBox(width: 10),
-                  button(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ProgressListScreen(),
-                      ));
-                    },
-                    child: 'Progress',
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 80,
-              ),
-            ],
-          ),
         ),
       ),
     );

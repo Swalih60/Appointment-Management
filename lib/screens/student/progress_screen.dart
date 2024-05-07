@@ -57,149 +57,140 @@ class ProgressScreen extends StatelessWidget {
     if (princiApproval) princColor = Colors.green;
     if (asstApproval) asstColor = Colors.green;
 
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xfff6f6f6), Color(0xff6b64e8)],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: Colors.blueAccent,
+        shadowColor: Colors.blue,
+        title: const Text(
+          "Progress Tracker",
+          style: TextStyle(color: Colors.white),
         ),
       ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          centerTitle: true,
-          iconTheme: const IconThemeData(color: Colors.black),
-          backgroundColor: const Color.fromARGB(255, 183, 214, 240),
-          shadowColor: Colors.blue,
-          title: const Text(
-            "Progress Tracker",
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
-        body: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            if (int.parse(to) >= 1)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration:
-                        BoxDecoration(shape: BoxShape.circle, color: facColor),
-                  ),
-                  Text(
-                    "         FACULTY \n$facTime",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, color: facColor),
-                  ),
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration:
-                        BoxDecoration(shape: BoxShape.circle, color: facColor),
-                  )
-                ],
-              ),
-            if (int.parse(to) >= 2)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration:
-                        BoxDecoration(shape: BoxShape.circle, color: hodColor),
-                  ),
-                  Text(
-                    "         HOD\n$hodTime",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, color: hodColor),
-                  ),
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration:
-                        BoxDecoration(shape: BoxShape.circle, color: hodColor),
-                  )
-                ],
-              ),
-            if (int.parse(to) >= 3)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration:
-                        BoxDecoration(shape: BoxShape.circle, color: viceColor),
-                  ),
-                  Text(
-                    "         VICE PRINCIPAL\n$viceTime",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: viceColor),
-                  ),
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration:
-                        BoxDecoration(shape: BoxShape.circle, color: viceColor),
-                  )
-                ],
-              ),
-            if (int.parse(to) >= 4)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: princColor),
-                  ),
-                  Text(
-                    "         PRINCIPAL\n$princiTime",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: princColor),
-                  ),
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: princColor),
-                  )
-                ],
-              ),
-            if (int.parse(to) >= 5)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration:
-                        BoxDecoration(shape: BoxShape.circle, color: asstColor),
-                  ),
-                  Text(
-                    "         ASST MANAGER\n$asstTime",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: asstColor),
-                  ),
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration:
-                        BoxDecoration(shape: BoxShape.circle, color: asstColor),
-                  )
-                ],
-              )
-          ],
-        )),
-      ),
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          if (int.parse(to) >= 1)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration:
+                      BoxDecoration(shape: BoxShape.circle, color: facColor),
+                ),
+                Text(
+                  "         FACULTY \n$facTime",
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, color: facColor),
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration:
+                      BoxDecoration(shape: BoxShape.circle, color: facColor),
+                )
+              ],
+            ),
+          if (int.parse(to) >= 2)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration:
+                      BoxDecoration(shape: BoxShape.circle, color: hodColor),
+                ),
+                Text(
+                  "         HOD\n$hodTime",
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, color: hodColor),
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration:
+                      BoxDecoration(shape: BoxShape.circle, color: hodColor),
+                )
+              ],
+            ),
+          if (int.parse(to) >= 3)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration:
+                      BoxDecoration(shape: BoxShape.circle, color: viceColor),
+                ),
+                Text(
+                  "         VICE PRINCIPAL\n$viceTime",
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, color: viceColor),
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration:
+                      BoxDecoration(shape: BoxShape.circle, color: viceColor),
+                )
+              ],
+            ),
+          if (int.parse(to) >= 4)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration:
+                      BoxDecoration(shape: BoxShape.circle, color: princColor),
+                ),
+                Text(
+                  "         PRINCIPAL\n$princiTime",
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, color: princColor),
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration:
+                      BoxDecoration(shape: BoxShape.circle, color: princColor),
+                )
+              ],
+            ),
+          if (int.parse(to) >= 5)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration:
+                      BoxDecoration(shape: BoxShape.circle, color: asstColor),
+                ),
+                Text(
+                  "         ASST MANAGER\n$asstTime",
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, color: asstColor),
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration:
+                      BoxDecoration(shape: BoxShape.circle, color: asstColor),
+                )
+              ],
+            )
+        ],
+      )),
     );
   }
 }

@@ -26,12 +26,12 @@ class button extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20.0),
               ),
             ),
-            backgroundColor: MaterialStatePropertyAll(Colors.blue[500]),
+            backgroundColor: const MaterialStatePropertyAll(Colors.blueAccent),
           ),
           child: Text(
             child,
             style: const TextStyle(
-              color: Colors.black,
+              color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 13.2,
             ),
@@ -62,7 +62,7 @@ class button1 extends StatelessWidget {
               borderRadius: BorderRadius.circular(20.0),
             ),
           ),
-          backgroundColor: MaterialStatePropertyAll(Colors.blue[500]),
+          backgroundColor: const MaterialStatePropertyAll(Colors.blueAccent),
         ),
         onPressed: onPressed,
         child: Row(
@@ -71,7 +71,7 @@ class button1 extends StatelessWidget {
             Text(
               text,
               style: const TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),

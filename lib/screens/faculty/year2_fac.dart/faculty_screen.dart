@@ -85,123 +85,113 @@ class _FacultyScreenYear2State extends State<FacultyScreenYear2> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xfff6f6f6), Color(0xff6b64e8)],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-      ),
-      child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            centerTitle: true,
-            actions: [
-              IconButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                },
-                icon: const Icon(Icons.logout),
-              ),
-            ],
-            iconTheme: const IconThemeData(color: Colors.black),
-            backgroundColor: const Color.fromARGB(255, 183, 214, 240),
-            shadowColor: Colors.blue,
-            title: const Text(
-              "FACULTY 2",
-              style: TextStyle(color: Colors.black),
+    return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+              },
+              icon: const Icon(Icons.logout),
             ),
+          ],
+          iconTheme: const IconThemeData(color: Colors.white),
+          backgroundColor: Colors.blueAccent,
+          shadowColor: Colors.blue,
+          title: const Text(
+            "FACULTY 2",
+            style: TextStyle(color: Colors.white),
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                const SizedBox(
-                  height: 10,
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              const SizedBox(
+                height: 10,
+              ),
+              TableCalendar(
+                firstDay: DateTime.utc(2024),
+                lastDay: DateTime.utc(2030),
+                rowHeight: 60,
+                headerStyle: const HeaderStyle(
+                  titleCentered: true,
+                  formatButtonVisible: false,
                 ),
-                TableCalendar(
-                  firstDay: DateTime.utc(2024),
-                  lastDay: DateTime.utc(2030),
-                  rowHeight: 60,
-                  headerStyle: const HeaderStyle(
-                    titleCentered: true,
-                    formatButtonVisible: false,
-                  ),
-                  eventLoader: (day) {
-                    return events[day] ?? [];
-                  },
-                  calendarBuilders: CalendarBuilders(
-                    defaultBuilder: (context, date, _) {
-                      // Customize the appearance of the day cell
-                      // Here, you can change the cell color based on the events (princ, vice, asst)
-                      Color cellColor = Colors.transparent;
+                eventLoader: (day) {
+                  return events[day] ?? [];
+                },
+                calendarBuilders: CalendarBuilders(
+                  defaultBuilder: (context, date, _) {
+                    // Customize the appearance of the day cell
+                    // Here, you can change the cell color based on the events (princ, vice, asst)
+                    Color cellColor = Colors.transparent;
 
-                      if (date.year == today.year &&
-                          date.month == today.month &&
-                          date.day == today.day) {
-                        cellColor = Colors
-                            .grey; // Highlight today's date with grey color
-                      }
+                    if (date.year == today.year &&
+                        date.month == today.month &&
+                        date.day == today.day) {
+                      cellColor =
+                          Colors.grey; // Highlight today's date with grey color
+                    }
 
-                      if (events.containsKey(date)) {
-                        final eventTypes = events[date];
-                        if (eventTypes!.contains('princi')) {
-                          cellColor = Colors.red; // Customize color for princ
-                        } else if (eventTypes.contains('vice')) {
-                          cellColor = Colors.blue; // Customize color for vice
-                        } else if (eventTypes.contains('asst')) {
-                          cellColor = Colors.green; // Customize color for asst
-                        }
+                    if (events.containsKey(date)) {
+                      final eventTypes = events[date];
+                      if (eventTypes!.contains('princi')) {
+                        cellColor = Colors.red; // Customize color for princ
+                      } else if (eventTypes.contains('vice')) {
+                        cellColor = Colors.blue; // Customize color for vice
+                      } else if (eventTypes.contains('asst')) {
+                        cellColor = Colors.green; // Customize color for asst
                       }
-                      return Container(
-                        margin: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: cellColor,
-                        ),
-                        child: Center(
-                          child: Text(
-                            '${date.day}',
-                            style: const TextStyle(
-                              color: Colors.black,
-                            ),
+                    }
+                    return Container(
+                      margin: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: cellColor,
+                      ),
+                      child: Center(
+                        child: Text(
+                          '${date.day}',
+                          style: const TextStyle(
+                            color: Colors.black,
                           ),
                         ),
-                      );
-                    },
-                  ),
-                  onDaySelected: (selectedDay, focusedDay) {
-                    setState(() {
-                      today = selectedDay;
-                    });
+                      ),
+                    );
                   },
-                  focusedDay: today,
                 ),
-                const SizedBox(
-                  height: 120,
-                ),
-                SizedBox(
-                  height: 70,
-                  width: 350,
-                  child: button1(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  ApprovalFacultyScreenYear2(),
-                            ));
-                      },
-                      text: 'Approval',
-                      icon: Icons.handshake),
-                ),
-                const SizedBox(
-                  height: 60,
-                )
-              ],
-            ),
-          )),
-    );
+                onDaySelected: (selectedDay, focusedDay) {
+                  setState(() {
+                    today = selectedDay;
+                  });
+                },
+                focusedDay: today,
+              ),
+              const SizedBox(
+                height: 120,
+              ),
+              SizedBox(
+                height: 70,
+                width: 350,
+                child: button1(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ApprovalFacultyScreenYear2(),
+                          ));
+                    },
+                    text: 'Approval',
+                    icon: Icons.handshake),
+              ),
+              const SizedBox(
+                height: 60,
+              )
+            ],
+          ),
+        ));
   }
 }
