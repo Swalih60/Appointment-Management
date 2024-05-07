@@ -110,6 +110,7 @@ class RequestFacScreenYear2 extends StatelessWidget {
                               const MaterialStatePropertyAll(Colors.green),
                         ),
                         onPressed: () {
+                          fs.updateTime(docId, 'FacTime');
                           fs.updateReq(docId, 'Fac');
                           int? toValue = int.tryParse(to);
                           if (toValue != null && toValue > 1) {

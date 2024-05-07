@@ -1,6 +1,5 @@
+import 'package:ams/components/response.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../components/response.dart';
 
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
 final CollectionReference collection = firestore.collection('Schedule-Details');
@@ -11,8 +10,8 @@ final CollectionReference collection1 = firestore1.collection('Approval');
 final FirebaseFirestore firestore2 = FirebaseFirestore.instance;
 final CollectionReference collection2 = firestore2.collection('Reject');
 
-// final FirebaseFirestore firestore3 = FirebaseFirestore.instance;
-// final CollectionReference collection3 = firestore3.collection('Student-Schedule-Details');
+final FirebaseFirestore firestore3 = FirebaseFirestore.instance;
+final CollectionReference collection3 = firestore3.collection('LeaveDate');
 
 class FirebaseCrud {
   static Future<Response> addScheduleDetails({
@@ -20,6 +19,8 @@ class FirebaseCrud {
     required String toName,
     required String date,
     required String time,
+    required String studentId,
+    // required String adminId,
   }) async {
     Response response = Response();
     DocumentReference documentReferencer = collection.doc();
@@ -31,6 +32,8 @@ class FirebaseCrud {
       "date": date,
       "time": time,
       "isApproved": "",
+      "studentId": studentId,
+      // "adminId": adminId
     };
 
     await documentReferencer.set(data).whenComplete(() {
@@ -44,8 +47,12 @@ class FirebaseCrud {
     return response;
   }
 
-  static Stream<QuerySnapshot> read() {
-    return collection.where('isApproved', isEqualTo: "").snapshots();
+  static Stream<QuerySnapshot> read(
+      {required String uid, required String num}) {
+    return collection
+        .where('isApproved', isEqualTo: "")
+        .where('toName', isEqualTo: num)
+        .snapshots();
   }
 
   static Stream<QuerySnapshot> readStudentScheduleDetails() {
@@ -129,6 +136,7 @@ class FirebaseCrud {
     required String toName,
     required String date,
     required String time,
+    required String studentId,
   }) async {
     Response response = Response();
     DocumentReference documentReferencer = collection.doc(docId);
@@ -155,7 +163,8 @@ class FirebaseCrud {
         "toName": toName,
         "date": date,
         "time": time,
-        "isApproved": isApproved
+        "isApproved": isApproved,
+        "studentId": studentId
       };
 
       await documentReferencer1.set(data1);
@@ -165,11 +174,33 @@ class FirebaseCrud {
         "toName": toName,
         "date": date,
         "time": time,
-        "isApproved": isApproved
+        "isApproved": isApproved,
+        "studentId": studentId
       };
 
       await documentReferencer2.set(data2);
     }
+
+    return response;
+  }
+
+  static Future<Response> markLeave(
+      {required DateTime date, required String adminId}) async {
+    Response response = Response();
+    DocumentReference documentReferencer = collection3.doc();
+
+    Map<String, dynamic> data = <String, dynamic>{
+      "date": date,
+      "adminId": adminId
+    };
+
+    documentReferencer.set(data).whenComplete(() {
+      response.code = 200;
+      response.message = "Leave marked on $date";
+    }).catchError((e) {
+      response.code = 500;
+      response.message = "Leave marking failed";
+    });
 
     return response;
   }

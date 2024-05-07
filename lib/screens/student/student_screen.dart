@@ -1,8 +1,8 @@
 import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
+import 'package:ams/screens/student/appointment_schedule_screen/student_home.dart';
 import 'package:ams/screens/student/digital_screen.dart';
 import 'package:ams/screens/student/progress_list_screen.dart';
-import 'package:ams/screens/student/schedule_screen.dart';
 import 'package:ams/screens/student/status_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,6 +17,7 @@ class StudenScreen extends StatefulWidget {
 }
 
 class _StudenScreenState extends State<StudenScreen> {
+  final uid = FirebaseAuth.instance.currentUser!.uid;
   final FireStoreServices fs = FireStoreServices();
   final displayName = FirebaseAuth.instance.currentUser!.displayName;
   DateTime today = DateTime.now();
@@ -200,7 +201,9 @@ class _StudenScreenState extends State<StudenScreen> {
                   button(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ScheduleAppointment(),
+                        builder: (context) => StudentHomePage(
+                          uid: uid,
+                        ),
                       ));
                     },
                     child: 'SCHEDULE',

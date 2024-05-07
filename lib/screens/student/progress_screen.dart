@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 class ProgressScreen extends StatelessWidget {
   ProgressScreen({
     Key? key,
+    required this.facTime,
+    required this.hodTime,
+    required this.viceTime,
+    required this.princiTime,
+    required this.asstTime,
     required this.facApproval,
     required this.viceApproval,
     required this.princiApproval,
@@ -12,6 +17,12 @@ class ProgressScreen extends StatelessWidget {
     required this.asstApproval,
     required this.to,
   }) : super(key: key);
+
+  final String facTime;
+  final String hodTime;
+  final String viceTime;
+  final String princiTime;
+  final String asstTime;
 
   final bool facApproval;
   final bool viceApproval;
@@ -82,7 +93,7 @@ class ProgressScreen extends StatelessWidget {
                         BoxDecoration(shape: BoxShape.circle, color: facColor),
                   ),
                   Text(
-                    "FACULTY",
+                    "         FACULTY \n$facTime",
                     style:
                         TextStyle(fontWeight: FontWeight.bold, color: facColor),
                   ),
@@ -105,7 +116,7 @@ class ProgressScreen extends StatelessWidget {
                         BoxDecoration(shape: BoxShape.circle, color: hodColor),
                   ),
                   Text(
-                    "HOD",
+                    "         HOD\n$hodTime",
                     style:
                         TextStyle(fontWeight: FontWeight.bold, color: hodColor),
                   ),
@@ -128,7 +139,7 @@ class ProgressScreen extends StatelessWidget {
                         BoxDecoration(shape: BoxShape.circle, color: viceColor),
                   ),
                   Text(
-                    "VICE PRINCIPAL",
+                    "         VICE PRINCIPAL\n$viceTime",
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: viceColor),
                   ),
@@ -151,7 +162,7 @@ class ProgressScreen extends StatelessWidget {
                         shape: BoxShape.circle, color: princColor),
                   ),
                   Text(
-                    "PRINCIPAL",
+                    "         PRINCIPAL\n$princiTime",
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: princColor),
                   ),
@@ -174,7 +185,7 @@ class ProgressScreen extends StatelessWidget {
                         BoxDecoration(shape: BoxShape.circle, color: asstColor),
                   ),
                   Text(
-                    "ASST MANAGER",
+                    "         ASST MANAGER\n$asstTime",
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: asstColor),
                   ),

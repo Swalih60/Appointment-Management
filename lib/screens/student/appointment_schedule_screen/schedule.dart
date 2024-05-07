@@ -1,23 +1,29 @@
+import 'package:ams/models/firebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../models/firebase.dart';
-
 class ScheduleAppointment extends StatefulWidget {
-  ScheduleAppointment({super.key});
+  final String uid; // Add this line to declare the uid variable
+
+  // Modify the constructor to accept uid as a parameter
+  ScheduleAppointment({Key? key, required this.uid}) : super(key: key);
 
   @override
   State<ScheduleAppointment> createState() => _ScheduleAppointmentState();
 }
 
 class _ScheduleAppointmentState extends State<ScheduleAppointment> {
-  final TextEditingController nameController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   final TextEditingController timeController = TextEditingController();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  final displayName = FirebaseAuth.instance.currentUser!.displayName;
 
-  final Stream<QuerySnapshot> collectionReference = FirebaseCrud.read();
+  String username = '';
+
+  final Stream<QuerySnapshot> collectionReference =
+      FirebaseCrud.readStudentScheduleDetails();
   List<Map<String, dynamic>> documentData = [];
 
   bool isLoading = false; // Variable to control the loader
@@ -53,6 +59,9 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
 
   @override
   Widget build(BuildContext context) {
+    // final Stream<QuerySnapshot> collectionReference = FirebaseCrud.read(uid: widget.uid);
+    String uid = widget.uid;
+    print('USer ID from schedule page = $uid');
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
@@ -73,36 +82,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextFormField(
-                  controller: nameController,
-                  autofocus: false,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'This field is required';
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                    labelText: 'Name',
-                    labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            color: Colors.blue.shade600,
-                            width: 3.0,
-                            style: BorderStyle.solid,
-                            strokeAlign: BorderSide.strokeAlignInside)),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: Colors.red,
-                          width: 3.0,
-                        )),
-                  )),
+              Text(displayName!),
               const SizedBox(height: 20.0),
               Container(
                 padding: const EdgeInsets.only(left: 20),
@@ -114,9 +94,11 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                   underline: Container(),
                   items: const [
                     DropdownMenuItem(value: 1, child: Text('Vice principal')),
-                    DropdownMenuItem(value: 2, child: Text('Principal')),
-                    DropdownMenuItem(value: 3, child: Text('Asst. Manager')),
-                    DropdownMenuItem(value: 4, child: Text('Manager')),
+                    // DropdownMenuItem(
+                    //     value: 2, child: Text('Vice principal - Administer')),
+                    DropdownMenuItem(value: 3, child: Text('Principal')),
+                    DropdownMenuItem(value: 4, child: Text('Asst. Manager')),
+                    // DropdownMenuItem(value: 5, child: Text('Manager')),
                   ],
                   value: currentvalue,
                   onChanged: (value) {
@@ -244,13 +226,28 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                       }
                     }
                   }
+                  // String? adminId;
+                  // if (currentvalue == 1) {
+                  //   adminId = '5fGUI3q38VRIyi6gKFcmR1IpRx43';
+                  // } else if (currentvalue == 2) {
+                  //   adminId = 'yZBDp2Q525ezRQ7GulFkhOU1WkN2';
+                  // } else if (currentvalue == 3) {
+                  //   adminId = '7LKsnd5f5VcE6g8uevU1V1Oacqy1';
+                  // } else if (currentvalue == 4) {
+                  //   adminId = '7LKsnd5f5VcE6g8uevU1V1Oacqy1';
+                  // } else if (currentvalue == 5) {
+                  //   adminId = 'TtPrAc2vz1Rrf4Sq2uSUl1O8Tw23';
+                  // }
 
                   if (slotAvailable) {
                     var response = await FirebaseCrud.addScheduleDetails(
-                        name: nameController.text,
-                        toName: currentvalue.toString(),
-                        date: dateController.text,
-                        time: timeController.text);
+                      name: displayName!,
+                      toName: currentvalue.toString(),
+                      date: dateController.text,
+                      time: timeController.text,
+                      studentId: uid,
+                      // adminId: adminId.toString(),
+                    );
                     if (response.code == 200) {
                       Fluttertoast.showToast(
                           msg: response.message.toString(),

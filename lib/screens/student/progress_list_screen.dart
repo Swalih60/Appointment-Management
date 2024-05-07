@@ -60,6 +60,12 @@ class ProgressListScreen extends StatelessWidget {
                       bool viceApproval = data['Vice'] ?? false;
                       bool asstApproval = data['Asst'] ?? false;
 
+                      String facTime = data['FacTime'] ?? 'Unknown';
+                      String hodTime = data['HodTime'] ?? 'Unknown';
+                      String viceTime = data['ViceTime'] ?? 'Unknown';
+                      String princiTime = data['PrinciTime'] ?? 'Unknown';
+                      String asstTime = data['AsstTime'] ?? 'Unknown';
+
                       if (requestTo == '1') {
                         requestTo = 'Faculty';
                       } else if (requestTo == '2') {
@@ -84,6 +90,11 @@ class ProgressListScreen extends StatelessWidget {
                                 princiApproval: princiApproval,
                                 hodApproval: hodApproval,
                                 asstApproval: asstApproval,
+                                facTime: facTime,
+                                viceTime: viceTime,
+                                hodTime: hodTime,
+                                princiTime: princiTime,
+                                asstTime: asstTime,
                               ),
                             ),
                           );

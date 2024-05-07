@@ -1,3 +1,4 @@
+import 'package:ams/screens/principal/appointment.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class PrincipalScreen extends StatefulWidget {
 }
 
 class _PrincipalScreenState extends State<PrincipalScreen> {
+  final uid = FirebaseAuth.instance.currentUser!.uid;
   Future<void> updateSelectedDates(List<DateTime> selectedDates) async {
     // Convert the list of DateTime objects to a list of formatted date strings
     List<String> dateStrings =
@@ -156,15 +158,37 @@ class _PrincipalScreenState extends State<PrincipalScreen> {
                 const SizedBox(
                   height: 80,
                 ),
-                SizedBox(
-                  height: 70,
-                  width: 350,
-                  child: button1(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/approval_principal');
-                      },
-                      text: 'Approval',
-                      icon: Icons.handshake),
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 70,
+                      width: 350,
+                      child: button1(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/approval_principal');
+                          },
+                          text: 'Approval',
+                          icon: Icons.handshake),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      height: 70,
+                      width: 350,
+                      child: button1(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ApproveOrRejectPrinc(uid: uid),
+                                ));
+                          },
+                          text: 'Appointments',
+                          icon: Icons.handshake),
+                    ),
+                  ],
                 ),
                 const SizedBox(
                   height: 60,

@@ -110,6 +110,7 @@ class RequestHodScreen extends StatelessWidget {
                               const MaterialStatePropertyAll(Colors.green),
                         ),
                         onPressed: () {
+                          fs.updateTime(docId, 'HodTime');
                           fs.updateReq(docId, 'Hod');
                           int? toValue = int.tryParse(to);
                           if (toValue != null && toValue > 2) {

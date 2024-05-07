@@ -1,3 +1,4 @@
+import 'package:ams/screens/asst_manager/appointment.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class AsstScreen extends StatefulWidget {
 }
 
 class _AsstScreenState extends State<AsstScreen> {
+  final uid = FirebaseAuth.instance.currentUser!.uid;
   late DateTime today;
   List<DateTime> selectedDates = [];
 
@@ -164,16 +166,39 @@ class _AsstScreenState extends State<AsstScreen> {
               const SizedBox(
                 height: 80,
               ),
-              SizedBox(
-                height: 70,
-                width: 350,
-                child: button1(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/approval_asst');
-                  },
-                  text: 'Approval',
-                  icon: Icons.handshake,
-                ),
+              Column(
+                children: [
+                  SizedBox(
+                    height: 70,
+                    width: 350,
+                    child: button1(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/approval_asst');
+                      },
+                      text: 'Approval',
+                      icon: Icons.handshake,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                    height: 70,
+                    width: 350,
+                    child: button1(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ApproveOrRejectAsst(uid: uid),
+                            ));
+                      },
+                      text: 'Appointments',
+                      icon: Icons.handshake,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 60,

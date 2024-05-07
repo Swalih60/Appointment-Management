@@ -111,6 +111,7 @@ class RequestPrincipalScreen extends StatelessWidget {
                               const MaterialStatePropertyAll(Colors.green),
                         ),
                         onPressed: () {
+                          fs.updateTime(docId, 'PrinciTime');
                           fs.updateReq(docId, 'Princi');
                           int? toValue = int.tryParse(to);
                           if (toValue != null && toValue > 4) {

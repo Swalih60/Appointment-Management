@@ -14,6 +14,7 @@ class FacultyScreenYear1 extends StatefulWidget {
 }
 
 class _FacultyScreenYear1State extends State<FacultyScreenYear1> {
+  final uid = FirebaseAuth.instance.currentUser!.uid;
   DateTime today = DateTime.now();
   Map<DateTime, List> events = {};
   List<DateTime> princiDates = [];
@@ -195,6 +196,9 @@ class _FacultyScreenYear1State extends State<FacultyScreenYear1> {
                       },
                       text: 'Approval',
                       icon: Icons.handshake),
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
                 const SizedBox(
                   height: 60,

@@ -111,6 +111,7 @@ class RequestViceScreen extends StatelessWidget {
                               const MaterialStatePropertyAll(Colors.green),
                         ),
                         onPressed: () {
+                          fs.updateTime(docId, 'ViceTime');
                           fs.updateReq(docId, 'Vice');
                           int? toValue = int.tryParse(to);
                           if (toValue != null && toValue > 3) {

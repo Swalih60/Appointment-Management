@@ -3,8 +3,42 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:intl/intl.dart';
 
 class FireStoreServices {
+  // final _firebaseMessaging = FirebaseMessaging.instance;
+
+  // void handleMessage(RemoteMessage? message) {
+  //   if (message == null) return;
+  //   navigatorKey.currentState?.pushNamed('/student', arguments: message);
+  // }
+
+  // Future initPushNotifcations() async {
+  //   await FirebaseMessaging.instance
+  //       .setForegroundNotificationPresentationOptions(
+  //     alert: true,
+  //     badge: true,
+  //     sound: true,
+  //   );
+  //   FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
+  //   FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
+  //   FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
+  // }
+
+  // Future<void> handleBackgroundMessage(RemoteMessage message) async {
+  //   print("Title: ${message.notification?.title}");
+  //   print("Body: ${message.notification?.body}");
+  //   print("Payload: ${message.data}");
+  // }
+
+  // Future<void> initNotification() async {
+  //   await _firebaseMessaging.requestPermission();
+  //   final fCMToken = await _firebaseMessaging.getToken();
+  //   print('Token: $fCMToken');
+  //   FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
+  //   initPushNotifcations();
+  // }
+
   final CollectionReference requests =
       FirebaseFirestore.instance.collection("requests");
 
@@ -29,18 +63,30 @@ class FireStoreServices {
       'TimeStamp': Timestamp.now(),
       'FacultyApproval': false,
       'Fac': false,
+      'FacTime': '',
       'HodApproval': false,
       'Hod': false,
+      'HodTime': '',
       'ViceApproval': false,
       'Vice': false,
+      'ViceTime': '',
       'PrincipalApproval': false,
       'Princi': false,
+      'PrinciTime': '',
       'Asst': false,
+      'AsstTime': '',
     });
   }
 
   Future<void> updateReq(String docID, String name) {
     return requests.doc(docID).update({name: true});
+  }
+
+  Future<void> updateTime(String docID, String name) {
+    final now = DateTime.now();
+    String timeString = DateFormat('h:mm a').format(now);
+    String date = '${now.day}/${now.month}/${now.year}    $timeString';
+    return requests.doc(docID).update({name: date});
   }
 
   // Stream<QuerySnapshot> getrequests() {

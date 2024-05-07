@@ -110,6 +110,7 @@ class RequestAsstScreen extends StatelessWidget {
                               const MaterialStatePropertyAll(Colors.green),
                         ),
                         onPressed: () {
+                          fs.updateTime(docId, 'AsstTime');
                           fs.updateReq(docId, 'Asst');
                           fs.addApprove(
                             uid: uid,
