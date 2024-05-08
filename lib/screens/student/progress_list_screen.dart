@@ -3,12 +3,14 @@ import 'package:ams/components/components.dart';
 import 'package:ams/models/model.dart';
 import 'package:ams/screens/student/progress_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProgressListScreen extends StatelessWidget {
   ProgressListScreen({Key? key}) : super(key: key);
 
   final FireStoreServices fs = FireStoreServices();
+  final uid = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +27,10 @@ class ProgressListScreen extends StatelessWidget {
           ),
         ),
         body: StreamBuilder<QuerySnapshot>(
-          stream:
-              fs.requests.orderBy('TimeStamp', descending: true).snapshots(),
+          stream: fs.requests
+              .orderBy('TimeStamp', descending: true)
+              .where('uid', isEqualTo: uid)
+              .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<DocumentSnapshot> requestList = snapshot.data!.docs;

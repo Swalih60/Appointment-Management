@@ -29,9 +29,7 @@ class StatusHomePage extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ApproveStatusPage(
-                                uid: uid,
-                              )));
+                          builder: (context) => ApproveStatusPage()));
                 },
                 child: const Text(
                   'Approved',
@@ -51,9 +49,7 @@ class StatusHomePage extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => RejectStatusPage(
-                                uid: uid,
-                              )));
+                          builder: (context) => RejectStatusPage()));
                 },
                 child: const Text(
                   'Rejected',

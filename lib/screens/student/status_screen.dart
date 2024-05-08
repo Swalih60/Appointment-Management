@@ -26,7 +26,7 @@ class _StatusScreenState extends State<StatusScreen> {
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 183, 214, 240),
+        backgroundColor: Colors.blueAccent,
         shadowColor: Colors.blue,
         title: const Text(
           "Status",
@@ -34,7 +34,7 @@ class _StatusScreenState extends State<StatusScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: const Color.fromARGB(255, 183, 214, 240),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.done), label: 'Approved'),
           BottomNavigationBarItem(icon: Icon(Icons.close), label: 'Rejected'),

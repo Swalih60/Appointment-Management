@@ -188,7 +188,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                   stream: collectionReference,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return CircularProgressIndicator();
+                      return const CircularProgressIndicator();
                     }
                     if (snapshot.hasError) {
                       Fluttertoast.showToast(

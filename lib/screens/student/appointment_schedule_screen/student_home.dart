@@ -1,8 +1,8 @@
 // student_home.dart
 
+import 'package:ams/screens/student/appointment_schedule_screen/approve_or_reject_screen.dart';
 import 'package:ams/screens/student/appointment_schedule_screen/schedule.dart';
 import 'package:ams/screens/student/appointment_schedule_screen/scheduled_appointment.dart';
-import 'package:ams/screens/student/appointment_schedule_screen/status.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -99,9 +99,8 @@ class StudentHomePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => StatusHomePage(
-                                    uid: uid,
-                                  )));
+                              builder: (context) =>
+                                  const ApproveOrRejectScreen()));
                       // StatusHomePage studentId = StatusHomePage();
                       // studentId.uid = uid;
                     },

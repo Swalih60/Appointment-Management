@@ -1,12 +1,16 @@
 import 'package:ams/models/firebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RejectStatusPage extends StatelessWidget {
-  final String uid; // Add this line to declare the uid variable
+  final String uid = FirebaseAuth
+      .instance.currentUser!.uid; // Add this line to declare the uid variable
 
   // Modify the constructor to accept uid as a parameter
-  RejectStatusPage({Key? key, required this.uid}) : super(key: key);
+  RejectStatusPage({
+    Key? key,
+  }) : super(key: key);
 
   final Stream<QuerySnapshot> collectionReference = FirebaseCrud.readReject();
 
