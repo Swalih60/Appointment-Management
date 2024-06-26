@@ -150,7 +150,7 @@ class _StudenScreenState extends State<StudenScreen> {
             TableCalendar(
               firstDay: DateTime.utc(2024),
               lastDay: DateTime.utc(2030),
-              rowHeight: 60,
+              rowHeight: 55,
               headerStyle: const HeaderStyle(
                 titleCentered: true,
                 formatButtonVisible: false,
@@ -238,7 +238,7 @@ class _StudenScreenState extends State<StudenScreen> {
               focusedDay: today,
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -267,7 +267,7 @@ class _StudenScreenState extends State<StudenScreen> {
               ],
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -292,7 +292,7 @@ class _StudenScreenState extends State<StudenScreen> {
               ],
             ),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
           ],
         ),

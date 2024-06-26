@@ -100,7 +100,7 @@ class _PrincipalScreenState extends State<PrincipalScreen> {
                 focusedDay: today,
                 firstDay: DateTime.utc(2024),
                 lastDay: DateTime.utc(2030),
-                rowHeight: 60,
+                rowHeight: 55,
                 headerStyle: const HeaderStyle(
                     titleCentered: true, formatButtonVisible: false),
                 selectedDayPredicate: (day) => selectedDates.contains(day),
@@ -148,7 +148,7 @@ class _PrincipalScreenState extends State<PrincipalScreen> {
                 },
               ),
               const SizedBox(
-                height: 80,
+                height: 60,
               ),
               Column(
                 children: [
@@ -183,7 +183,7 @@ class _PrincipalScreenState extends State<PrincipalScreen> {
                 ],
               ),
               const SizedBox(
-                height: 60,
+                height: 30,
               )
             ],
           ),

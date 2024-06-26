@@ -100,7 +100,7 @@ class _AsstScreenState extends State<AsstScreen> {
               focusedDay: today,
               firstDay: DateTime.utc(2024),
               lastDay: DateTime.utc(2030),
-              rowHeight: 60,
+              rowHeight: 55,
               headerStyle: const HeaderStyle(
                 titleCentered: true,
                 formatButtonVisible: false,
@@ -156,7 +156,7 @@ class _AsstScreenState extends State<AsstScreen> {
               },
             ),
             const SizedBox(
-              height: 80,
+              height: 60,
             ),
             Column(
               children: [
@@ -192,7 +192,7 @@ class _AsstScreenState extends State<AsstScreen> {
               ],
             ),
             const SizedBox(
-              height: 60,
+              height: 30,
             )
           ],
         ),
